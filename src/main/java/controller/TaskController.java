@@ -149,7 +149,7 @@ public class TaskController
             statement.setString(1, plate);
             resultSet = statement.executeQuery();
             
-            while(resultSet.next())//Enquanto houverem valores a serem percorridos no resultSet
+            while(resultSet.next())
             {
                 Task task = new Task();
                 task.setPlate(resultSet.getString("placa"));
@@ -165,7 +165,7 @@ public class TaskController
         }
         finally 
         {
-            ConnectionFactory.closeConnection(con, statement, resultSet);//Encerra a conexão e fecha o statement
+            ConnectionFactory.closeConnection(con, statement, resultSet);
         }
         return taskList;//Retorna a LISTA
     }
@@ -207,7 +207,8 @@ public class TaskController
                 
                 while(resultSet2.next())
                 {
-                    if(!lastCar.equals(resultSet2.getString("placa")))//Para evitar que retorne duas vezes o mesmo carro
+                    //Para evitar que retorne duas vezes o mesmo carro
+                    if(!lastCar.equals(resultSet2.getString("placa")))
                     {
                         Car car = new Car();
                         car.setId(resultSet2.getInt("ID"));

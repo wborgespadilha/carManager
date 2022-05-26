@@ -1111,78 +1111,29 @@ public class TelaPrincipal extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotaoPesquisarMouseClicked
-        // Seleciona a coluna de pesquisa de acordo com o item escolhido no SelecionarTipo
-        int selecionado = SelecionarTipo.getSelectedIndex();
+        int selected = SelecionarTipo.getSelectedIndex();
 
         //Requisita a inserção de dados, exceto para as localizações dos veículos
-        if(selecionado != 8 && selecionado != 9 && selecionado != 10 && selecionado != 11)
+        if(selected != 8 && selected != 9 && selected != 10 && selected != 11)
         {
-            if(BarraDePesquisa.getDocument().getLength() == 0)//Faz a validação de entrada
+            if(BarraDePesquisa.getDocument().getLength() == 0)
             {
                 mostrarDialogo("ERRO", "Você deve informar os dados!");
                 return;      
             }     
         }
 
-        switch(selecionado)
+        switch(selected)
         {
             case 0 -> //ID
             {
-                try
-                {
-                    car = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
-                    
-                    if(car.getPlate() == null)
-                    {
-                        mostrarDialogo("ERRO", "A pesquisa não teve resultados!");
-                        return;
-                    }
-                    
-                    PlacaConsulta.setText(car.getPlate());
-                    IDConsulta.setText(Integer.toString(car.getId()));
-                    DonoConsulta.setText(car.getOwner());
-                    MarcaConsulta.setText(car.getBrand());
-                    ModeloConsulta.setText(car.getModel());
-                    DataEntradaConsulta.setText(format.format(car.getEntrance()));
-                    
-                    if(!"31/12/1969".equals(format.format(car.getExit())))
-                    {
-                        DataSaidaConsulta.setText(format.format(car.getExit()));
-                    }
-                    else
-                    {
-                        DataSaidaConsulta.setText("");
-                    }
-                    
-                    ComentariosConsulta.setText(car.getComments());
-                    local1Consulta.setSelected(car.isInFirstLocal());
-                    local2Consulta.setSelected(car.isInSecondLocal());
-                    local3Consulta.setSelected(car.isInThirdLocal());
-                    local4Consulta.setSelected(car.isInFourthLocal());
-                    PopularTarefas(car.getPlate());
-                    if(clicked == true)
-                    {
-                        changeEditar(false);
-                    }
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByID();
                 return;
  
             }
             case 1 -> //Placa
             {
-                try
-                {
-                    carList = carController.getByPlate(BarraDePesquisa.getText());// Procura no banco de dados na coluna referente ao tipo
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByPlate();
             }
             case 2 -> //Dono
             {
@@ -1341,7 +1292,6 @@ public class TelaPrincipal extends javax.swing.JFrame
             return;
         }
         
-        //Validar data
         if(isValidDate(DataEntradaCadastro.getText()) == false){return;}
         
         if(DataSaidaCadastro.getDocument().getLength() != 0)
@@ -1546,7 +1496,7 @@ public class TelaPrincipal extends javax.swing.JFrame
 
     private void AdicionarTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_AdicionarTarefaConsultaMouseClicked
     {//GEN-HEADEREND:event_AdicionarTarefaConsultaMouseClicked
-       if(AdicionarTarefaConsulta.isEnabled() == true )
+       if(AdicionarTarefaConsulta.isEnabled() == true)
        {
             TelaAdicionarTarefa dialogo = new TelaAdicionarTarefa(this.jFrame1,true);
             dialogo.passarPlaca(PlacaConsulta.getText());
@@ -2036,5 +1986,63 @@ public class TelaPrincipal extends javax.swing.JFrame
         local4Consulta.setSelected(false);
         modelQuery.setRowCount(0);
     }
-    
+
+    private void fetchCarByID() 
+    {
+        try 
+        {
+            car = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
+
+            if (car.getPlate() == null) 
+            {
+                mostrarDialogo("ERRO", "A pesquisa não teve resultados!");
+                return;
+            }
+
+            PlacaConsulta.setText(car.getPlate());
+            IDConsulta.setText(Integer.toString(car.getId()));
+            DonoConsulta.setText(car.getOwner());
+            MarcaConsulta.setText(car.getBrand());
+            ModeloConsulta.setText(car.getModel());
+            DataEntradaConsulta.setText(format.format(car.getEntrance()));
+
+            if (!"31/12/1969".equals(format.format(car.getExit()))) 
+            {
+                DataSaidaConsulta.setText(format.format(car.getExit()));
+            } 
+            else 
+            {
+                DataSaidaConsulta.setText("");
+            }
+
+            ComentariosConsulta.setText(car.getComments());
+            local1Consulta.setSelected(car.isInFirstLocal());
+            local2Consulta.setSelected(car.isInSecondLocal());
+            local3Consulta.setSelected(car.isInThirdLocal());
+            local4Consulta.setSelected(car.isInFourthLocal());
+            PopularTarefas(car.getPlate());
+            
+            if (clicked == true) 
+            {
+                changeEditar(false);
+            }
+            
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+
+    private void fetchCarByPlate() 
+    {
+        try 
+        {
+            carList = carController.getByPlate(BarraDePesquisa.getText());
+            checkResult(carList);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+
 }

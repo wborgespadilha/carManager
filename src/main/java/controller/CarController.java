@@ -474,7 +474,7 @@ public class CarController
         {
             ConnectionFactory.closeConnection(con, statement, resultSet);
         }
-        return carList;//Retorna a LISTA
+        return carList;
     }
     
     public List<Car> getByExit(String exit)
@@ -524,9 +524,9 @@ public class CarController
         }
         finally 
         {
-            ConnectionFactory.closeConnection(con, statement, resultSet);//Encerra a conexão e fecha o statement
+            ConnectionFactory.closeConnection(con, statement, resultSet);
         }
-        return carList;//Retorna a LISTA
+        return carList;
     }
     
     public List<Car> getByFirstLocal()
@@ -615,9 +615,9 @@ public class CarController
         }
         finally 
         {
-            ConnectionFactory.closeConnection(con, statement, resultSet);//Encerra a conexão e fecha o statement
+            ConnectionFactory.closeConnection(con, statement, resultSet);
         }
-        return carList;//Retorna a LISTA
+        return carList;
     }
     
     public List<Car> getByThirdLocal()
@@ -663,7 +663,7 @@ public class CarController
         {
             ConnectionFactory.closeConnection(con, statement, resultSet);
         }
-        return carList;//Retorna a LISTA
+        return carList;
     }
     
     public List<Car> getByFourthLocal()
@@ -709,7 +709,7 @@ public class CarController
         {
             ConnectionFactory.closeConnection(con, statement, resultSet);
         }
-        return carList;//Retorna a LISTA
+        return carList;
     }
     
 }
