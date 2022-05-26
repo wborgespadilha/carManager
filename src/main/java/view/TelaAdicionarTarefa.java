@@ -1,24 +1,24 @@
 package view;
 
-import controller.TarefaController;
+import controller.TaskController;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-import model.Tarefa;
+import model.Task;
 
 public class TelaAdicionarTarefa extends javax.swing.JDialog 
 {
-    int estado = -1;
-    TarefaController controller;
+    int state = -1;
+    TaskController controller;
     SimpleDateFormat format;
-    Tarefa tar;
+    Task task;
     
     public TelaAdicionarTarefa(java.awt.Frame parent, boolean modal) 
     {
         super(parent, modal);
         initComponents();
-        controller = new TarefaController();
+        controller = new TaskController();
         format = new SimpleDateFormat("dd/MM/yyyy");
-        tar = new Tarefa();
+        task = new Task();
     }
 
     @SuppressWarnings("unchecked")
@@ -192,11 +192,11 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
 
         try
         {
-            tar.setDatatarefa(format.parse(dataTarefa.getText()));
-            tar.setTitulo(nomeTarefa.getText());
-            tar.setTexto(comentariosTarefa.getText());
-            controller.saveTarefa(tar);
-            estado = 1;
+            task.setTaskDate(format.parse(dataTarefa.getText()));
+            task.setTitle(nomeTarefa.getText());
+            task.setText(comentariosTarefa.getText());
+            controller.saveTask(task);
+            state = 1;
             dispose();//Apenas fecha a tela
         }
         catch(Exception ex)
@@ -261,14 +261,14 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
     private javax.swing.JTextField placaText;
     // End of variables declaration//GEN-END:variables
 
-    public int Estado()
+    public int State()
     {
-        return estado;
+        return state;
     }
 
     public void passarPlaca(String placa)
     {
-        tar.setPlaca(placa);
+        task.setPlate(placa);
         placaText.setText(placa);
     }
     

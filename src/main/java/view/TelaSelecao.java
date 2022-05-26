@@ -1,7 +1,7 @@
 
 package view;
 
-import model.Carro;
+import model.Car;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -10,8 +10,8 @@ import java.text.SimpleDateFormat;
 
 public class TelaSelecao extends javax.swing.JDialog 
 {
-    List<Carro> list;
-    int selecionado = -1;
+    List<Car> list;
+    int selectedCar = -1;
 
     public TelaSelecao(java.awt.Frame parent, boolean modal) 
     {
@@ -172,7 +172,7 @@ public class TelaSelecao extends javax.swing.JDialog
 
     private void botaoSelecionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoSelecionarMouseClicked
         // pega o item selecionado
-        selecionado = TABELA.getSelectedRow();
+        selectedCar = TABELA.getSelectedRow();
         dispose();
     }//GEN-LAST:event_botaoSelecionarMouseClicked
 
@@ -225,31 +225,31 @@ public class TelaSelecao extends javax.swing.JDialog
     private javax.swing.JPanel painelVazio;
     // End of variables declaration//GEN-END:variables
 
-    public void PopularTabela(List<Carro> lista)
+    public void PopulateTable(List<Car> carList)
     {
-        int tamanho = lista.size();
-        list = lista;
-        Carro car;
+        int tamanho = carList.size();
+        list = carList;
+        Car car;
         DefaultTableModel model = (DefaultTableModel) TABELA.getModel();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
         for(int i = 0; i < tamanho; i++)
         {
-            car = lista.get(i);
-            String Placa = car.getPlaca();
-            String Dono = car.getDono();
-            String Marca = car.getMarca();
-            String Modelo = car.getModelo();
-            String Entrada = format.format(car.getEntrada());
-            String Saida = format.format(car.getSaida());
+            car = carList.get(i);
+            String Placa = car.getPlate();
+            String Dono = car.getOwner();
+            String Marca = car.getBrand();
+            String Modelo = car.getModel();
+            String Entrada = format.format(car.getEntrance());
+            String Saida = format.format(car.getExit());
             Object[] row = { Placa, Dono, Marca, Modelo, Entrada, Saida };
             model.addRow(row); 
         }     
     }
     
-    public int ReturnCarro()
+    public int ReturnCar()
     {
-        return selecionado;
+        return selectedCar;
     }
     
 }

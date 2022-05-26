@@ -1,19 +1,19 @@
 
 package view;
 
-import controller.CarroController;
-import controller.TarefaController;
+import controller.CarController;
+import controller.TaskController;
 import javax.swing.JOptionPane;
-import model.Carro;
+import model.Car;
 
 
 public class TelaConfirmacao extends javax.swing.JDialog 
 {
 
-    CarroController controller = new CarroController();
-    TarefaController controllert = new TarefaController();
-    Carro carro;
-    int deletado = -1;
+    CarController carController = new CarController();
+    TaskController taskController = new TaskController();
+    Car car;
+    int deleted = -1;
     
     public TelaConfirmacao(java.awt.Frame parent, boolean modal) 
     {
@@ -137,9 +137,9 @@ public class TelaConfirmacao extends javax.swing.JDialog
     private void SIMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIMMouseClicked
         try
         {
-            deletado = 0;
-            controller.delete(carro);
-            controllert.deleteTarefa(carro.getPlaca());
+            deleted = 0;
+            carController.delete(car);
+            taskController.deleteTaskByPlate(car.getPlate());
             TelaDialogo dialogo = new TelaDialogo(null,true);
             dialogo.SetMessage("SUCESSO", "O carro foi excluido com sucesso!");
             dialogo.setVisible(true);
@@ -199,14 +199,14 @@ public class TelaConfirmacao extends javax.swing.JDialog
     private javax.swing.JLabel labelCONFIRMA;
     // End of variables declaration//GEN-END:variables
     
-    public void PassarCarro(Carro car)
+    public void PassarCarro(Car car)
     {
-        carro = car;
+        this.car = car;
     }
 
-    public int Estado()
+    public int State()
     {
-        return deletado;
+        return deleted;
     }
 
 }

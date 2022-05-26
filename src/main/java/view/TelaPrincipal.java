@@ -1,7 +1,7 @@
 package view;
 
-import controller.CarroController;
-import controller.TarefaController;
+import controller.CarController;
+import controller.TaskController;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,32 +9,32 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Carro;
-import model.Tarefa;
+import model.Car;
+import model.Task;
 
 public class TelaPrincipal extends javax.swing.JFrame 
 {
 
-    CarroController controller;
-    TarefaController controllert;
-    Carro carro;
-    Boolean clicado;//flag botão editar
-    List<Carro> lista;
-    List<Tarefa> listatarefas;
+    CarController carController;
+    TaskController taskController;
+    Car car;
+    Boolean clicked;//flag botão editar
+    List<Car> carList;
+    List<Task> taskList;
     SimpleDateFormat format;
-    DefaultTableModel modelCD;
-    DefaultTableModel modelCO;
+    DefaultTableModel modelRegister;
+    DefaultTableModel modelQuery;
     
     public TelaPrincipal() 
     {
         initComponents();
-        controller = new CarroController();
-        controllert = new TarefaController();
-        carro = new Carro();
-        clicado = false;
+        carController = new CarController();
+        taskController = new TaskController();
+        car = new Car();
+        clicked = false;
         format = new SimpleDateFormat("dd/MM/yyyy");
-        this.modelCD = (DefaultTableModel) tabelaCadastro.getModel();
-        this.modelCO = (DefaultTableModel) tabelaConsulta.getModel();
+        this.modelRegister = (DefaultTableModel) tabelaCadastro.getModel();
+        this.modelQuery = (DefaultTableModel) tabelaConsulta.getModel();
     }
 
    
@@ -1130,35 +1130,37 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    carro = controller.getById(Integer.parseInt(BarraDePesquisa.getText()));
+                    car = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
                     
-                    if(carro.getPlaca() == null)
+                    if(car.getPlate() == null)
                     {
                         mostrarDialogo("ERRO", "A pesquisa não teve resultados!");
                         return;
                     }
                     
-                    PlacaConsulta.setText(carro.getPlaca());
-                    IDConsulta.setText(Integer.toString(carro.getId()));
-                    DonoConsulta.setText(carro.getDono());
-                    MarcaConsulta.setText(carro.getMarca());
-                    ModeloConsulta.setText(carro.getModelo());
-                    DataEntradaConsulta.setText(format.format(carro.getEntrada()));
-                    if(!"31/12/1969".equals(format.format(carro.getSaida())))
+                    PlacaConsulta.setText(car.getPlate());
+                    IDConsulta.setText(Integer.toString(car.getId()));
+                    DonoConsulta.setText(car.getOwner());
+                    MarcaConsulta.setText(car.getBrand());
+                    ModeloConsulta.setText(car.getModel());
+                    DataEntradaConsulta.setText(format.format(car.getEntrance()));
+                    
+                    if(!"31/12/1969".equals(format.format(car.getExit())))
                     {
-                        DataSaidaConsulta.setText(format.format(carro.getSaida()));
+                        DataSaidaConsulta.setText(format.format(car.getExit()));
                     }
                     else
                     {
                         DataSaidaConsulta.setText("");
                     }
-                    ComentariosConsulta.setText(carro.getComentarios());
-                    local1Consulta.setSelected(carro.isLocal1());
-                    local2Consulta.setSelected(carro.isLocal2());
-                    local3Consulta.setSelected(carro.isLocal3());
-                    local4Consulta.setSelected(carro.isLocal4());
-                    PopularTarefas(carro.getPlaca());
-                    if(clicado == true)
+                    
+                    ComentariosConsulta.setText(car.getComments());
+                    local1Consulta.setSelected(car.isInFirstLocal());
+                    local2Consulta.setSelected(car.isInSecondLocal());
+                    local3Consulta.setSelected(car.isInThirdLocal());
+                    local4Consulta.setSelected(car.isInFourthLocal());
+                    PopularTarefas(car.getPlate());
+                    if(clicked == true)
                     {
                         changeEditar(false);
                     }
@@ -1174,8 +1176,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByPlaca(BarraDePesquisa.getText());// Procura no banco de dados na coluna referente ao tipo
-                    checkResult(lista);
+                    carList = carController.getByPlate(BarraDePesquisa.getText());// Procura no banco de dados na coluna referente ao tipo
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1186,8 +1188,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByDono(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = carController.getByOwner(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1198,8 +1200,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByMarca(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = carController.getByBrand(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1210,8 +1212,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByModelo(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = carController.getByModel(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1222,10 +1224,10 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    if(ValidarData(BarraDePesquisa.getText()) == 1){return;}
+                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
 
-                    lista = controller.getByEntrada(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = carController.getByEntrance(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1236,10 +1238,10 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    if(ValidarData(BarraDePesquisa.getText()) == 1){return;}
+                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
 
-                    lista = controller.getBySaida(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = carController.getByExit(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1250,10 +1252,10 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    if(ValidarData(BarraDePesquisa.getText()) == 1){return;}
+                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
 
-                    lista = controllert.getCarByTarefa(BarraDePesquisa.getText());
-                    checkResult(lista);
+                    carList = taskController.getCarByTask(BarraDePesquisa.getText());
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1264,8 +1266,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByLocal1();
-                    checkResult(lista);
+                    carList = carController.getByFirstLocal();
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1276,8 +1278,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByLocal2();
-                    checkResult(lista);
+                    carList = carController.getBySecondLocal();
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1288,8 +1290,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByLocal3();
-                    checkResult(lista);
+                    carList = carController.getByThirdLocal();
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1300,8 +1302,8 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 try
                 {
-                    lista = controller.getByLocal4();
-                    checkResult(lista);
+                    carList = carController.getByFourthLocal();
+                    checkResult(carList);
                 }
                 catch(Exception ex)
                 {
@@ -1340,22 +1342,22 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
         
         //Validar data
-        if(ValidarData(DataEntradaCadastro.getText()) == 1){return;}
+        if(isValidDate(DataEntradaCadastro.getText()) == false){return;}
         
         if(DataSaidaCadastro.getDocument().getLength() != 0)
         {
-            if(ValidarData(DataSaidaCadastro.getText()) == 1){return;}
+            if(isValidDate(DataSaidaCadastro.getText()) == false){return;}
         }
         
         for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Primeiramente valida toda a tabela
         {
-            String data = (String) tabelaCadastro.getValueAt(i, 0);
-            if(data == null)
+            String date = (String) tabelaCadastro.getValueAt(i, 0);
+            if(date == null)
             {
                 mostrarDialogo("ERRO", "Você deve informar a data da tarefa!");
                 return;
             }
-            if(ValidarData(data) == 1){return;}
+            if(isValidDate(date) == false){return;}
             
             String titulo = (String) tabelaCadastro.getValueAt(i, 1);
             if(titulo == null)
@@ -1368,34 +1370,36 @@ public class TelaPrincipal extends javax.swing.JFrame
         try
         {
             //Guarda os dados no objeto
-            carro.setPlaca(PlacaCadastro.getText());
-            carro.setDono(DonoCadastro.getText());
-            carro.setMarca(MarcaCadastro.getText());
-            carro.setModelo(ModeloCadastro.getText());
-            carro.setEntrada(format.parse(DataEntradaCadastro.getText()));
+            car.setPlate(PlacaCadastro.getText());
+            car.setOwner(DonoCadastro.getText());
+            car.setBrand(MarcaCadastro.getText());
+            car.setModel(ModeloCadastro.getText());
+            car.setEntrance(format.parse(DataEntradaCadastro.getText()));
+            
             if(DataSaidaCadastro.getDocument().getLength() != 0)
             {
-                carro.setSaida(format.parse(DataSaidaCadastro.getText()));
+                car.setExit(format.parse(DataSaidaCadastro.getText()));
             }
-            carro.setComentarios(ComentariosCadastro.getText());
-            carro.setLocal1(local1Cadastro.isSelected());
-            carro.setLocal2(local2Cadastro.isSelected());
-            carro.setLocal3(local3Cadastro.isSelected());
-            carro.setLocal4(local4Cadastro.isSelected());
+            
+            car.setComments(ComentariosCadastro.getText());
+            car.setInFirstLocal(local1Cadastro.isSelected());
+            car.setInSecondLocal(local2Cadastro.isSelected());
+            car.setInThirdLocal(local3Cadastro.isSelected());
+            car.setInFourthLocal(local4Cadastro.isSelected());
             
             for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
             {
-                Tarefa tar = new Tarefa();
+                Task task = new Task();
                 Date dataTabela = format.parse((String) tabelaCadastro.getValueAt(i, 0));
-                tar.setDatatarefa(dataTabela);
-                tar.setTitulo((String) tabelaCadastro.getValueAt(i, 1));
-                tar.setTexto((String) tabelaCadastro.getValueAt(i, 2));
-                tar.setPlaca(PlacaCadastro.getText());
-                controllert.saveTarefa(tar); //Salva as tarefas no banco de dados
+                task.setTaskDate(dataTabela);
+                task.setTitle((String) tabelaCadastro.getValueAt(i, 1));
+                task.setText((String) tabelaCadastro.getValueAt(i, 2));
+                task.setPlate(PlacaCadastro.getText());
+                taskController.saveTask(task); //Salva as tarefas no banco de dados
             }
 
             // Cria a linha no banco de dados
-            controller.save(carro);
+            carController.create(car);
             
             // Retorna uma tela informando sucesso da operação
             mostrarDialogo("SUCESSO", "O carro foi cadastrado com sucesso!");
@@ -1412,35 +1416,35 @@ public class TelaPrincipal extends javax.swing.JFrame
     private void EditarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarConsultaMouseClicked
         if(!"".equals(IDConsulta.getText()))
         {
-            if(clicado == false)
+            if(clicked == false)
             {
                 //Habilitar os campos e o botão salvar
                 changeEditar(true);
             }
-            else if(clicado == true)
+            else if(clicked == true)
             {
                 //Atualiza com as informações do objeto carro
                 //Para caso deshabilite a edição sem salvar
                 if(!"".equals(IDConsulta.getText()))
                 {
-                    PlacaConsulta.setText(carro.getPlaca());
-                    DonoConsulta.setText(carro.getDono());
-                    MarcaConsulta.setText(carro.getMarca());
-                    ModeloConsulta.setText(carro.getModelo());
-                    DataEntradaConsulta.setText(format.format(carro.getEntrada()));
-                    if(!"31/12/1969".equals(format.format(carro.getSaida())))
+                    PlacaConsulta.setText(car.getPlate());
+                    DonoConsulta.setText(car.getOwner());
+                    MarcaConsulta.setText(car.getBrand());
+                    ModeloConsulta.setText(car.getModel());
+                    DataEntradaConsulta.setText(format.format(car.getEntrance()));
+                    if(!"31/12/1969".equals(format.format(car.getExit())))
                     {
-                        DataSaidaConsulta.setText(format.format(carro.getSaida()));
+                        DataSaidaConsulta.setText(format.format(car.getExit()));
                     }
                     else
                     {
                         DataSaidaConsulta.setText("");
                     }
-                    local1Consulta.setSelected(carro.isLocal1());
-                    local2Consulta.setSelected(carro.isLocal2());
-                    local3Consulta.setSelected(carro.isLocal3());
-                    local4Consulta.setSelected(carro.isLocal4());
-                    PopularTarefas(carro.getPlaca());
+                    local1Consulta.setSelected(car.isInFirstLocal());
+                    local2Consulta.setSelected(car.isInSecondLocal());
+                    local3Consulta.setSelected(car.isInThirdLocal());
+                    local4Consulta.setSelected(car.isInFourthLocal());
+                    PopularTarefas(car.getPlate());
                 }
                 //Deshabilita os campos e o botão salvar
                 changeEditar(false);  
@@ -1481,33 +1485,34 @@ public class TelaPrincipal extends javax.swing.JFrame
             return;
         }
         
-        if(ValidarData(DataEntradaConsulta.getText()) == 1){return;}
+        if(isValidDate(DataEntradaConsulta.getText()) == false){return;}
         
         if(DataSaidaConsulta.getDocument().getLength() != 0)
         {
-            if(ValidarData(DataSaidaConsulta.getText()) == 1){return;}
+            if(isValidDate(DataSaidaConsulta.getText()) == false){return;}
         }
         
         try
         {
             //Guarda os dados no objeto
-            carro.setPlaca(PlacaConsulta.getText());
-            carro.setDono(DonoConsulta.getText());
-            carro.setMarca(MarcaConsulta.getText());
-            carro.setModelo(ModeloConsulta.getText());
-            carro.setEntrada(format.parse(DataEntradaConsulta.getText()));
+            car.setPlate(PlacaConsulta.getText());
+            car.setOwner(DonoConsulta.getText());
+            car.setBrand(MarcaConsulta.getText());
+            car.setModel(ModeloConsulta.getText());
+            car.setEntrance(format.parse(DataEntradaConsulta.getText()));
+            
             if(DataSaidaConsulta.getDocument().getLength() != 0)
             {
-                carro.setSaida(format.parse(DataSaidaConsulta.getText()));
+                car.setExit(format.parse(DataSaidaConsulta.getText()));
             }
-            carro.setComentarios(ComentariosConsulta.getText());
-            carro.setLocal1(local1Consulta.isSelected());
-            carro.setLocal2(local2Consulta.isSelected());
-            carro.setLocal3(local3Consulta.isSelected());
-            carro.setLocal4(local4Consulta.isSelected());
+            car.setComments(ComentariosConsulta.getText());
+            car.setInFirstLocal(local1Consulta.isSelected());
+            car.setInSecondLocal(local2Consulta.isSelected());
+            car.setInThirdLocal(local3Consulta.isSelected());
+            car.setInFourthLocal(local4Consulta.isSelected());
 
             // Muda a linha no banco de dados
-            controller.update(carro);
+            carController.update(car);
 
 
             mostrarDialogo("CONFIRMAÇÃO", "As informações foram salvas");
@@ -1531,12 +1536,12 @@ public class TelaPrincipal extends javax.swing.JFrame
     private void AdicionarTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_AdicionarTarefaCadastroMouseClicked
     {//GEN-HEADEREND:event_AdicionarTarefaCadastroMouseClicked
         Object[] rowData = {};
-        modelCD.addRow(rowData);
+        modelRegister.addRow(rowData);
     }//GEN-LAST:event_AdicionarTarefaCadastroMouseClicked
 
     private void RemoverTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_RemoverTarefaCadastroMouseClicked
     {//GEN-HEADEREND:event_RemoverTarefaCadastroMouseClicked
-        modelCD.removeRow(tabelaCadastro.getSelectedRow());
+        modelRegister.removeRow(tabelaCadastro.getSelectedRow());
     }//GEN-LAST:event_RemoverTarefaCadastroMouseClicked
 
     private void AdicionarTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_AdicionarTarefaConsultaMouseClicked
@@ -1547,7 +1552,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             dialogo.passarPlaca(PlacaConsulta.getText());
             dialogo.setVisible(true);
             
-            if(dialogo.Estado() == 1)
+            if(dialogo.State() == 1)
             {
                 PopularTarefas(PlacaConsulta.getText());
             }
@@ -1558,16 +1563,16 @@ public class TelaPrincipal extends javax.swing.JFrame
     {//GEN-HEADEREND:event_RemoverTarefaConsultaMouseClicked
         if(RemoverTarefaConsulta.isEnabled() == true)
         {
-            Tarefa tar = new Tarefa();
-            tar.setTitulo((String) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1));
-            tar.setPlaca(PlacaConsulta.getText());
+            Task task = new Task();
+            task.setTitle((String) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1));
+            task.setPlate(PlacaConsulta.getText());
             
             
             TelaConfirmacaoTarefa dialogo = new TelaConfirmacaoTarefa(this.jFrame1,true);
-            dialogo.PassarTarefa(tar);
+            dialogo.PassarTarefa(task);
             dialogo.setVisible(true);
             
-            if(dialogo.Estado() == 0)
+            if(dialogo.State() == 0)
             {
                 PopularTarefas(PlacaConsulta.getText());
             }
@@ -1704,42 +1709,42 @@ public class TelaPrincipal extends javax.swing.JFrame
     private javax.swing.JTable tabelaConsulta;
     // End of variables declaration//GEN-END:variables
 
-    private int ValidarData(String data)
+    private boolean isValidDate(String data)
     {
         if(!(data.length() == 10))
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
 
         if (!(Character.isDigit(data.charAt(0)) && Character.isDigit(data.charAt(1)))) 
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
 
         if (data.charAt(2) != '/')
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
 
         if (!(Character.isDigit(data.charAt(3)) && Character.isDigit(data.charAt(4))))
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
         if (data.charAt(5) != '/')
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
 
         if (! (Character.isDigit(data.charAt(6)) && Character.isDigit(data.charAt(7))
          && Character.isDigit(data.charAt(8)) && Character.isDigit(data.charAt(9))) )
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
         
         int i = Integer.parseInt(data.substring(3, 5));//mês
@@ -1747,7 +1752,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         if (i < 0 || i > 12)
         {
             mostrarDialogo("ERRO", "A data informada é inválida!");
-            return 1;
+            return false;
         }
         
         int j = Integer.parseInt(data.substring(0, 2));//dia
@@ -1759,7 +1764,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 2 ->
@@ -1770,7 +1775,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                     if (j < 0 || j > 29)
                     {
                         mostrarDialogo("ERRO", "A data informada é inválida!");
-                        return 1;
+                        return false;
                     }
                 }
                 else
@@ -1778,7 +1783,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                     if (j < 0 || j > 28)
                     {
                         mostrarDialogo("ERRO", "A data informada é inválida!");
-                        return 1;
+                        return false;
                     }
                 }
             }
@@ -1787,7 +1792,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 4 ->
@@ -1795,7 +1800,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 30)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 5 ->
@@ -1803,7 +1808,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 6 ->
@@ -1811,7 +1816,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 30)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 7 ->
@@ -1819,7 +1824,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 8 ->
@@ -1827,7 +1832,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 9 ->
@@ -1835,7 +1840,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 30)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 10 ->
@@ -1843,7 +1848,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 11 ->
@@ -1851,7 +1856,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 30)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
             case 12 ->
@@ -1859,43 +1864,43 @@ public class TelaPrincipal extends javax.swing.JFrame
                 if (j < 0 || j > 31)
                 {
                     mostrarDialogo("ERRO", "A data informada é inválida!");
-                    return 1;
+                    return false;
                 }
             }
         }
-        return 0;
+        return true;
     }
 
-    public void MostrarTelaDeSelecao(List<Carro> list)
+    public void MostrarTelaDeSelecao(List<Car> carList)
     {
         TelaSelecao telaSelecao = new TelaSelecao(this,true);
-        telaSelecao.PopularTabela(list);
+        telaSelecao.PopulateTable(carList);
         telaSelecao.setVisible(true);
         
-        if(telaSelecao.ReturnCarro() != -1)
+        if(telaSelecao.ReturnCar()!= -1)
         {
-            carro = (lista.get(telaSelecao.ReturnCarro()));
-            PlacaConsulta.setText(carro.getPlaca());
-            IDConsulta.setText(Integer.toString(carro.getId()));
-            DonoConsulta.setText(carro.getDono());
-            MarcaConsulta.setText(carro.getMarca());
-            ModeloConsulta.setText(carro.getModelo());
-            DataEntradaConsulta.setText(format.format(carro.getEntrada()));
-            if(!"31/12/1969".equals(format.format(carro.getSaida())))
+            car = (carList.get(telaSelecao.ReturnCar()));
+            PlacaConsulta.setText(car.getPlate());
+            IDConsulta.setText(Integer.toString(car.getId()));
+            DonoConsulta.setText(car.getOwner());
+            MarcaConsulta.setText(car.getBrand());
+            ModeloConsulta.setText(car.getModel());
+            DataEntradaConsulta.setText(format.format(car.getEntrance()));
+            if(!"31/12/1969".equals(format.format(car.getExit())))
             {
-                DataSaidaConsulta.setText(format.format(carro.getSaida()));
+                DataSaidaConsulta.setText(format.format(car.getExit()));
             }
             else
             {
                 DataSaidaConsulta.setText("");
             }
-            ComentariosConsulta.setText(carro.getComentarios());
-            local1Consulta.setSelected(carro.isLocal1());
-            local2Consulta.setSelected(carro.isLocal2());
-            local3Consulta.setSelected(carro.isLocal3());
-            local4Consulta.setSelected(carro.isLocal4());
-            PopularTarefas(carro.getPlaca());
-            if(clicado == true)
+            ComentariosConsulta.setText(car.getComments());
+            local1Consulta.setSelected(car.isInFirstLocal());
+            local2Consulta.setSelected(car.isInSecondLocal());
+            local3Consulta.setSelected(car.isInThirdLocal());
+            local4Consulta.setSelected(car.isInFourthLocal());
+            PopularTarefas(car.getPlate());
+            if(clicked == true)
             {
                 changeEditar(false);
             }
@@ -1905,51 +1910,51 @@ public class TelaPrincipal extends javax.swing.JFrame
     public void MostraTelaDeConfirmacao()
     {
         TelaConfirmacao dialogo = new TelaConfirmacao(this.jFrame1,true);
-        dialogo.PassarCarro(carro);
+        dialogo.PassarCarro(car);
         dialogo.setVisible(true);
 
-        if(dialogo.Estado() == 0)
+        if(dialogo.State()== 0)
         {
-            carro.setPlaca(null);
-            carro.setDono(null);
-            carro.setMarca(null);
-            carro.setModelo(null);
-            carro.setEntrada(null);
-            carro.setSaida(null);
-            carro.setComentarios(null);
-            carro.setLocal1(false);
-            carro.setLocal2(false);
-            carro.setLocal3(false);
-            carro.setLocal4(false);
-            if(clicado == true)
+            car.setPlate(null);
+            car.setOwner(null);
+            car.setBrand(null);
+            car.setModel(null);
+            car.setEntrance(null);
+            car.setExit(null);
+            car.setComments(null);
+            car.setInFirstLocal(false);
+            car.setInSecondLocal(false);
+            car.setInThirdLocal(false);
+            car.setInFourthLocal(false);
+            if(clicked == true)
             {
                 changeEditar(false);
             }    
             
             for(int i = 0; i < tabelaConsulta.getRowCount(); i++)//Converte tabela em objetos
             {
-                Tarefa tar = new Tarefa();
-                tar.setTitulo((String) tabelaConsulta.getValueAt(i, 1));
-                tar.setPlaca(PlacaConsulta.getText());
-                controllert.deleteSpecificTarefa(tar); //Salva as tarefas no banco de dados
+                Task task = new Task();
+                task.setTitle((String) tabelaConsulta.getValueAt(i, 1));
+                task.setPlate(PlacaConsulta.getText());
+                taskController.deleteTask(task); //Salva as tarefas no banco de dados
             }
             clearConsulta();
         } 
     }
     
-    public void PopularTarefas(String placa)
+    public void PopularTarefas(String plate)
     {
-        modelCO.setRowCount(0);
-        listatarefas = controllert.getTarefasByPlaca(placa);
-        Tarefa tar;
-        for(int i = 0; i < listatarefas.size(); i++)
+        modelQuery.setRowCount(0);
+        taskList = taskController.getTasksByPlate(plate);
+        Task task;
+        for(int i = 0; i < taskList.size(); i++)
         {
-            tar = listatarefas.get(i);
-            Date data = tar.getDatatarefa();
-            String titulo = tar.getTitulo();
-            String texto = tar.getTexto();
+            task = taskList.get(i);
+            Date data = task.getTaskDate();
+            String titulo = task.getTitle();
+            String texto = task.getText();
             Object[] row = { data, titulo, texto};
-            modelCO.addRow(row);
+            modelQuery.addRow(row);
         }
     }
     
@@ -1960,7 +1965,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         dialogo.setVisible(true);
     }
     
-    private void checkResult(List<Carro> lista)
+    private void checkResult(List<Car> lista)
     {
         if(lista.isEmpty())
         {
@@ -1996,7 +2001,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         local4Consulta.setEnabled(bool);
         AdicionarTarefaConsulta.setEnabled(bool);
         RemoverTarefaConsulta.setEnabled(bool);
-        clicado = bool;
+        clicked = bool;
     }
     
     private void clearCadastro()
@@ -2012,7 +2017,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         local2Cadastro.setSelected(false);
         local3Cadastro.setSelected(false);
         local4Cadastro.setSelected(false);
-        modelCD.setRowCount(0);
+        modelRegister.setRowCount(0);
     }
     
     private void clearConsulta()
@@ -2029,7 +2034,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         local2Consulta.setSelected(false);
         local3Consulta.setSelected(false);
         local4Consulta.setSelected(false);
-        modelCO.setRowCount(0);
+        modelQuery.setRowCount(0);
     }
     
 }

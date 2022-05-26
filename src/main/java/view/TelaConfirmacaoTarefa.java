@@ -1,17 +1,17 @@
 
 package view;
 
-import controller.TarefaController;
+import controller.TaskController;
 import javax.swing.JOptionPane;
-import model.Tarefa;
+import model.Task;
 
 
 public class TelaConfirmacaoTarefa extends javax.swing.JDialog 
 {
 
-    TarefaController controllert = new TarefaController();
-    int deletado = -1;
-    Tarefa tarefa;
+    TaskController taskController = new TaskController();
+    int deleted = -1;
+    Task task;
     
     public TelaConfirmacaoTarefa(java.awt.Frame parent, boolean modal) 
     {
@@ -147,8 +147,8 @@ public class TelaConfirmacaoTarefa extends javax.swing.JDialog
     private void SIMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIMMouseClicked
         try
         {
-            deletado = 0;
-            controllert.deleteSpecificTarefa(tarefa);
+            deleted = 0;
+            taskController.deleteTask(task);
             TelaDialogo dialogo = new TelaDialogo(null,true);
             dialogo.SetMessage("SUCESSO", "A tarefa foi excluida com sucesso!");
             dialogo.setVisible(true);
@@ -209,14 +209,14 @@ public class TelaConfirmacaoTarefa extends javax.swing.JDialog
     private javax.swing.JLabel labelTarefa;
     // End of variables declaration//GEN-END:variables
     
-    public void PassarTarefa(Tarefa tar)
+    public void PassarTarefa(Task task)
     {
-        tarefa = tar;
-        labelTarefa.setText(tarefa.getTitulo());
+        this.task = task;
+        labelTarefa.setText(task.getTitle());
     }
-    public int Estado()
+    public int State()
     {
-        return deletado;
+        return deleted;
     }
 
 }
