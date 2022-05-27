@@ -1145,6 +1145,225 @@ public class TelaPrincipal extends javax.swing.JFrame
         }   
     }//GEN-LAST:event_BotaoPesquisarMouseClicked
 
+    private void fetchCarByID() 
+    {
+        try 
+        {
+            globalCar = carController.getById(Integer.valueOf(BarraDePesquisa.getText()));
+
+            if (globalCar.getPlate() == null) 
+            {
+                showDialog("ERRO", "A pesquisa não teve resultados!");
+                return;
+            }
+
+            setQueryDataByGlobalCar();
+            
+            PopulateOrRefreshTasks(globalCar.getPlate());
+            
+            if (isEditButtonClicked == true) 
+            {
+                isUserEditing(false);
+            }
+            
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+
+    private void fetchCarByPlate() 
+    {
+        try 
+        {
+            carList = carController.getByPlate(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+
+    private void fetchCarByOwner()
+    {
+        try 
+        {
+            carList = carController.getByOwner(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByBrand()
+    {
+        try 
+        {
+            carList = carController.getByBrand(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByModel()
+    {
+        try 
+        {
+            carList = carController.getByModel(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByEntrance()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = carController.getByEntrance(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByExit()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = carController.getByExit(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByTaskDay()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = taskController.getCarByTask(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByFirstLocal()
+    {
+        try
+        {
+            carList = carController.getByFirstLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarBySecondLocal()
+    {
+        try
+        {
+            carList = carController.getBySecondLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+        
+    private void fetchCarByThirdLocal()
+    {
+        try
+        {
+            carList = carController.getByThirdLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByFourthLocal()
+    {
+        try
+        {
+            carList = carController.getByFourthLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void checkResult(List<Car> lista)
+    {
+        if(lista.isEmpty())
+        {
+            showDialog("ERRO", "A pesquisa não teve resultados!");
+        }
+        else
+        {
+            ShowSelectionScreen(lista);
+        }
+    }
+    
+    public void ShowSelectionScreen(List<Car> carList)
+    {
+        TelaSelecao selectionScreen = new TelaSelecao(this,true);
+        selectionScreen.PopulateTable(carList);
+        selectionScreen.setVisible(true);
+        
+        if(selectionScreen.ReturnSelectedCar() != -1)
+        {
+            globalCar = (carList.get(selectionScreen.ReturnSelectedCar()));
+            
+            setQueryDataByGlobalCar();
+            PopulateOrRefreshTasks(globalCar.getPlate());
+            
+            if(isEditButtonClicked == true)
+            {
+                isUserEditing(false);
+            }
+        }
+    }
+    
+    
     private void BotaoCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotaoCadastrarMouseClicked
         // Unico botão da tela CADASTRAR
         // Faz a validação de todos os parâmetros
@@ -1187,6 +1406,82 @@ public class TelaPrincipal extends javax.swing.JFrame
         
     }//GEN-LAST:event_BotaoCadastrarMouseClicked
 
+    private void createCar()
+    {
+        try
+        {
+            setGlobalCarByRegisterData();
+            
+            for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
+            {
+                Task task = new Task();
+                Date dataTabela = format.parse((String) tabelaCadastro.getValueAt(i, 0));
+                
+                task.setTaskDate(dataTabela);
+                task.setTitle((String) tabelaCadastro.getValueAt(i, 1));
+                task.setText((String) tabelaCadastro.getValueAt(i, 2));
+                task.setPlate(PlacaCadastro.getText());
+                
+                taskController.saveTask(task); //Salva as tarefas no banco de dados
+            }
+
+            carController.create(globalCar);
+
+            showDialog("SUCESSO", "O carro foi cadastrado com sucesso!");
+
+            clearRegister();
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private boolean isRegisterTableValid()
+    {
+        for(int i = 0; i < tabelaCadastro.getRowCount(); i++)
+        {
+            String date = (String) tabelaCadastro.getValueAt(i, 0);
+            
+            if(date == null)
+            {
+                showDialog("ERRO", "Você deve informar a data da tarefa!");
+                return false;
+            }
+            
+            if(isValidDate(date) == false)
+            {
+                return false;
+            }
+            
+            String titulo = (String) tabelaCadastro.getValueAt(i, 1);
+            
+            if(titulo == null)
+            {
+                showDialog("ERRO", "Você deve informar o título da tarefa!");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    private void clearRegister()
+    {
+        PlacaCadastro.setText("");
+        DonoCadastro.setText("");
+        MarcaCadastro.setText("");
+        ModeloCadastro.setText("");
+        DataEntradaCadastro.setText("");
+        DataSaidaCadastro.setText("");
+        ComentariosCadastro.setText("");
+        local1Cadastro.setSelected(false);
+        local2Cadastro.setSelected(false);
+        local3Cadastro.setSelected(false);
+        local4Cadastro.setSelected(false);
+        modelRegister.setRowCount(0);
+    }
+    
+    
     private void botaoEditarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEditarConsultaMouseClicked
         if(isTextFieldEmpty(IDConsulta) ==  false)
         {
@@ -1196,7 +1491,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
             else if(isEditButtonClicked == true)
             {
-                refreshQueryFieldsData();
+                setQueryDataByGlobalCar();
                 isUserEditing(false);  
             }
         }
@@ -1252,6 +1547,23 @@ public class TelaPrincipal extends javax.swing.JFrame
         
     }//GEN-LAST:event_botaoSalvarConsultaMouseClicked
 
+    private void updateCar()       
+    {
+        try
+        {
+            setGlobalCarByQueryData();
+
+            carController.update(globalCar);
+            showDialog("CONFIRMAÇÃO", "As informações foram salvas");
+
+            isUserEditing(false);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
     private void botaoExcluirConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirConsultaMouseClicked
         if(isTextFieldEmpty(IDConsulta) == false)
         {
@@ -1259,6 +1571,62 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
     }//GEN-LAST:event_botaoExcluirConsultaMouseClicked
 
+    public void showDeleteConfirmation()
+    {
+        TelaConfirmacao confirmDialog = new TelaConfirmacao(this.jFrame1,true);
+        confirmDialog.SetCar(globalCar);
+        confirmDialog.setVisible(true);
+
+        if(confirmDialog.wasConfirmed()== true)
+        {
+            globalCar.setPlate(null);
+            globalCar.setOwner(null);
+            globalCar.setBrand(null);
+            globalCar.setModel(null);
+            globalCar.setEntrance(null);
+            globalCar.setExit(null);
+            globalCar.setComments(null);
+            globalCar.setInFirstLocal(false);
+            globalCar.setInSecondLocal(false);
+            globalCar.setInThirdLocal(false);
+            globalCar.setInFourthLocal(false);
+            
+            if(isEditButtonClicked == true)
+            {
+                isUserEditing(false);
+            }    
+            
+            for(int i = 0; i < tabelaConsulta.getRowCount(); i++)
+            {
+                Task task = new Task();
+                
+                task.setTitle((String) tabelaConsulta.getValueAt(i, 1));
+                task.setPlate(PlacaConsulta.getText());
+                
+                taskController.deleteTask(task); 
+            }
+            clearQuery();
+        } 
+    }
+    
+    private void clearQuery()
+    {
+        IDConsulta.setText("");
+        PlacaConsulta.setText("");
+        DonoConsulta.setText("");
+        MarcaConsulta.setText("");
+        ModeloConsulta.setText("");
+        DataEntradaConsulta.setText("");
+        DataSaidaConsulta.setText("");
+        ComentariosConsulta.setText("");
+        local1Consulta.setSelected(false);
+        local2Consulta.setSelected(false);
+        local3Consulta.setSelected(false);
+        local4Consulta.setSelected(false);
+        modelQuery.setRowCount(0);
+    }
+    
+    
     private void botaoAdicionarTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_botaoAdicionarTarefaCadastroMouseClicked
     {//GEN-HEADEREND:event_botaoAdicionarTarefaCadastroMouseClicked
         Object[] rowData = {};
@@ -1608,122 +1976,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         dialogo.SetMessage(title, text);
         dialogo.setVisible(true);
     }
-    
-    private boolean isRegisterTableValid()
-    {
-        for(int i = 0; i < tabelaCadastro.getRowCount(); i++)
-        {
-            String date = (String) tabelaCadastro.getValueAt(i, 0);
-            
-            if(date == null)
-            {
-                showDialog("ERRO", "Você deve informar a data da tarefa!");
-                return false;
-            }
-            
-            if(isValidDate(date) == false)
-            {
-                return false;
-            }
-            
-            String titulo = (String) tabelaCadastro.getValueAt(i, 1);
-            
-            if(titulo == null)
-            {
-                showDialog("ERRO", "Você deve informar o título da tarefa!");
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    public void showDeleteConfirmation()
-    {
-        TelaConfirmacao confirmDialog = new TelaConfirmacao(this.jFrame1,true);
-        confirmDialog.SetCar(globalCar);
-        confirmDialog.setVisible(true);
-
-        if(confirmDialog.wasConfirmed()== true)
-        {
-            globalCar.setPlate(null);
-            globalCar.setOwner(null);
-            globalCar.setBrand(null);
-            globalCar.setModel(null);
-            globalCar.setEntrance(null);
-            globalCar.setExit(null);
-            globalCar.setComments(null);
-            globalCar.setInFirstLocal(false);
-            globalCar.setInSecondLocal(false);
-            globalCar.setInThirdLocal(false);
-            globalCar.setInFourthLocal(false);
-            
-            if(isEditButtonClicked == true)
-            {
-                isUserEditing(false);
-            }    
-            
-            for(int i = 0; i < tabelaConsulta.getRowCount(); i++)
-            {
-                Task task = new Task();
-                
-                task.setTitle((String) tabelaConsulta.getValueAt(i, 1));
-                task.setPlate(PlacaConsulta.getText());
-                
-                taskController.deleteTask(task); 
-            }
-            clearQuery();
-        } 
-    }
-    
-    private void clearQuery()
-    {
-        IDConsulta.setText("");
-        PlacaConsulta.setText("");
-        DonoConsulta.setText("");
-        MarcaConsulta.setText("");
-        ModeloConsulta.setText("");
-        DataEntradaConsulta.setText("");
-        DataSaidaConsulta.setText("");
-        ComentariosConsulta.setText("");
-        local1Consulta.setSelected(false);
-        local2Consulta.setSelected(false);
-        local3Consulta.setSelected(false);
-        local4Consulta.setSelected(false);
-        modelQuery.setRowCount(0);
-    }
- 
-    private void checkResult(List<Car> lista)
-    {
-        if(lista.isEmpty())
-        {
-            showDialog("ERRO", "A pesquisa não teve resultados!");
-        }
-        else
-        {
-            ShowSelectionScreen(lista);
-        }
-    }
-    
-    public void ShowSelectionScreen(List<Car> carList)
-    {
-        TelaSelecao selectionScreen = new TelaSelecao(this,true);
-        selectionScreen.PopulateTable(carList);
-        selectionScreen.setVisible(true);
-        
-        if(selectionScreen.ReturnSelectedCar() != -1)
-        {
-            globalCar = (carList.get(selectionScreen.ReturnSelectedCar()));
-            
-            setQueryDataByGlobalCar();
-            PopulateOrRefreshTasks(globalCar.getPlate());
-            
-            if(isEditButtonClicked == true)
-            {
-                isUserEditing(false);
-            }
-        }
-    }
-    
+  
     public void PopulateOrRefreshTasks(String plate)
     {
         modelQuery.setRowCount(0);
@@ -1768,71 +2021,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         botaoRemoverTarefaConsulta.setEnabled(bool);
         isEditButtonClicked = bool;
     }
-    
-    private void updateCar()       
-    {
-        try
-        {
-            setGlobalCarByQueryData();
-
-            carController.update(globalCar);
-            showDialog("CONFIRMAÇÃO", "As informações foram salvas");
-
-            isUserEditing(false);
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void createCar()
-    {
-        try
-        {
-            setGlobalCarByRegisterData();
-            
-            for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
-            {
-                Task task = new Task();
-                Date dataTabela = format.parse((String) tabelaCadastro.getValueAt(i, 0));
-                
-                task.setTaskDate(dataTabela);
-                task.setTitle((String) tabelaCadastro.getValueAt(i, 1));
-                task.setText((String) tabelaCadastro.getValueAt(i, 2));
-                task.setPlate(PlacaCadastro.getText());
-                
-                taskController.saveTask(task); //Salva as tarefas no banco de dados
-            }
-
-            carController.create(globalCar);
-
-            showDialog("SUCESSO", "O carro foi cadastrado com sucesso!");
-
-            clearRegister();
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void clearRegister()
-    {
-        PlacaCadastro.setText("");
-        DonoCadastro.setText("");
-        MarcaCadastro.setText("");
-        ModeloCadastro.setText("");
-        DataEntradaCadastro.setText("");
-        DataSaidaCadastro.setText("");
-        ComentariosCadastro.setText("");
-        local1Cadastro.setSelected(false);
-        local2Cadastro.setSelected(false);
-        local3Cadastro.setSelected(false);
-        local4Cadastro.setSelected(false);
-        modelRegister.setRowCount(0);
-    }
-    
+   
     private void setGlobalCarByRegisterData()
     {
         try
@@ -1919,219 +2108,4 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
     }
     
-    private void refreshQueryFieldsData() 
-    {
-        if (!"".equals(IDConsulta.getText())) 
-        {
-            PlacaConsulta.setText(globalCar.getPlate());
-            IDConsulta.setText(Integer.toString(globalCar.getId()));
-            DonoConsulta.setText(globalCar.getOwner());
-            MarcaConsulta.setText(globalCar.getBrand());
-            ModeloConsulta.setText(globalCar.getModel());
-            
-            DataEntradaConsulta.setText(format.format(globalCar.getEntrance()));
-            
-            if(!"31/12/1969".equals(format.format(globalCar.getExit())))
-            {
-                DataSaidaConsulta.setText(format.format(globalCar.getExit()));
-            }
-            else
-            {
-                DataSaidaConsulta.setText("");
-            }
-            
-            ComentariosConsulta.setText(globalCar.getComments());
-            local1Consulta.setSelected(globalCar.isInFirstLocal());
-            local2Consulta.setSelected(globalCar.isInSecondLocal());
-            local3Consulta.setSelected(globalCar.isInThirdLocal());
-            local4Consulta.setSelected(globalCar.isInFourthLocal());
-            PopulateOrRefreshTasks(globalCar.getPlate());
-        }
-    }
-    
-    private void fetchCarByID() 
-    {
-        try 
-        {
-            globalCar = carController.getById(Integer.valueOf(BarraDePesquisa.getText()));
-
-            if (globalCar.getPlate() == null) 
-            {
-                showDialog("ERRO", "A pesquisa não teve resultados!");
-                return;
-            }
-
-            setQueryDataByGlobalCar();
-            
-            PopulateOrRefreshTasks(globalCar.getPlate());
-            
-            if (isEditButtonClicked == true) 
-            {
-                isUserEditing(false);
-            }
-            
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-
-    private void fetchCarByPlate() 
-    {
-        try 
-        {
-            carList = carController.getByPlate(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-
-    private void fetchCarByOwner()
-    {
-        try 
-        {
-            carList = carController.getByOwner(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByBrand()
-    {
-        try 
-        {
-            carList = carController.getByBrand(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByModel()
-    {
-        try 
-        {
-            carList = carController.getByModel(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByEntrance()
-    {
-        try 
-        {
-            if (isValidDate(BarraDePesquisa.getText()) == false) 
-            {
-                return;
-            }
-
-            carList = carController.getByEntrance(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByExit()
-    {
-        try 
-        {
-            if (isValidDate(BarraDePesquisa.getText()) == false) 
-            {
-                return;
-            }
-
-            carList = carController.getByExit(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByTaskDay()
-    {
-        try 
-        {
-            if (isValidDate(BarraDePesquisa.getText()) == false) 
-            {
-                return;
-            }
-
-            carList = taskController.getCarByTask(BarraDePesquisa.getText());
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByFirstLocal()
-    {
-        try
-        {
-            carList = carController.getByFirstLocal();
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarBySecondLocal()
-    {
-        try
-        {
-            carList = carController.getBySecondLocal();
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-        
-    private void fetchCarByThirdLocal()
-    {
-        try
-        {
-            carList = carController.getByThirdLocal();
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
-    
-    private void fetchCarByFourthLocal()
-    {
-        try
-        {
-            carList = carController.getByFourthLocal();
-            checkResult(carList);
-        } 
-        catch (Exception ex) 
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
-    }
 }
