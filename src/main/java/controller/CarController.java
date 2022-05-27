@@ -128,6 +128,7 @@ public class CarController
             statement.setBoolean(9, car.isInSecondLocal());
             statement.setBoolean(10, car.isInThirdLocal());
             statement.setBoolean(11, car.isInFourthLocal());
+            statement.setInt(12, car.getId());
             statement.execute();
         }
         catch(Exception e)

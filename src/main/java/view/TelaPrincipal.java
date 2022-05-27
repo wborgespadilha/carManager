@@ -75,13 +75,13 @@ public class TelaPrincipal extends javax.swing.JFrame
         tabelaCadastro = new javax.swing.JTable();
         botaoAdicionarTarefaCadastro = new javax.swing.JButton();
         botaoRemoverTarefaCadastro = new javax.swing.JButton();
-        DataEntradaCadastro = new javax.swing.JFormattedTextField();
-        DataSaidaCadastro = new javax.swing.JFormattedTextField();
         PlacaCadastro = new javax.swing.JFormattedTextField();
         local1Cadastro = new javax.swing.JCheckBox();
         local2Cadastro = new javax.swing.JCheckBox();
         local3Cadastro = new javax.swing.JCheckBox();
         local4Cadastro = new javax.swing.JCheckBox();
+        DataEntradaCadastro = new javax.swing.JTextField();
+        DataSaidaCadastro = new javax.swing.JTextField();
         jDesktopPane2 = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
         SelecionarTipo = new javax.swing.JComboBox<>();
@@ -112,13 +112,13 @@ public class TelaPrincipal extends javax.swing.JFrame
         tabelaConsulta = new javax.swing.JTable();
         botaoAdicionarTarefaConsulta = new javax.swing.JButton();
         botaoRemoverTarefaConsulta = new javax.swing.JButton();
-        DataEntradaConsulta = new javax.swing.JFormattedTextField();
-        DataSaidaConsulta = new javax.swing.JFormattedTextField();
         PlacaConsulta = new javax.swing.JFormattedTextField();
         local1Consulta = new javax.swing.JCheckBox();
         local2Consulta = new javax.swing.JCheckBox();
         local3Consulta = new javax.swing.JCheckBox();
         local4Consulta = new javax.swing.JCheckBox();
+        DataEntradaConsulta = new javax.swing.JTextField();
+        DataSaidaConsulta = new javax.swing.JTextField();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -356,8 +356,6 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
         });
 
-        DataEntradaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
         try {
             PlacaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU#A##")));
         } catch (java.text.ParseException ex) {
@@ -395,13 +393,13 @@ public class TelaPrincipal extends javax.swing.JFrame
         jDesktopPane4.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(botaoAdicionarTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(botaoRemoverTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane4.setLayer(DataEntradaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane4.setLayer(DataSaidaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(PlacaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(local1Cadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(local2Cadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(local3Cadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(local4Cadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane4.setLayer(DataEntradaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane4.setLayer(DataSaidaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane4Layout = new javax.swing.GroupLayout(jDesktopPane4);
         jDesktopPane4.setLayout(jDesktopPane4Layout);
@@ -437,7 +435,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                                         .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(DataEntradaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(DataSaidaCadastro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(49, 49, 49)
+                                .addGap(15, 15, 15)
                                 .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jDesktopPane4Layout.createSequentialGroup()
                                         .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -510,22 +508,24 @@ public class TelaPrincipal extends javax.swing.JFrame
                                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(DataEntradaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DataEntradaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(local1Cadastro)
                                         .addComponent(local3Cadastro)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(DataSaidaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(DataSaidaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(local2Cadastro)
                                         .addComponent(local4Cadastro)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                             .addGroup(jDesktopPane4Layout.createSequentialGroup()
                                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addGap(58, 58, 58)
@@ -550,6 +550,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel2.setText("Busca por:");
 
         SelecionarTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Placa", "Dono", "Marca", "Modelo", "Data de entrada", "Data de saída", "Data da tarefa", "VOSS", "BLUCAR", "TERCEIROS", "OFICINA", " " }));
+
+        BarraDePesquisa.setText("0");
 
         BotaoPesquisar.setText("Buscar");
         BotaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -696,14 +698,6 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
         });
 
-        DataEntradaConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        DataEntradaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
-        DataEntradaConsulta.setEnabled(false);
-
-        DataSaidaConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        DataSaidaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
-        DataSaidaConsulta.setEnabled(false);
-
         try {
             PlacaConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU#A##")));
         } catch (java.text.ParseException ex) {
@@ -727,6 +721,12 @@ public class TelaPrincipal extends javax.swing.JFrame
         local4Consulta.setForeground(new java.awt.Color(153, 204, 255));
         local4Consulta.setText("Oficina");
         local4Consulta.setEnabled(false);
+
+        DataEntradaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        DataEntradaConsulta.setEnabled(false);
+
+        DataSaidaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
+        DataSaidaConsulta.setEnabled(false);
 
         jDesktopPane2.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(SelecionarTipo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -755,13 +755,13 @@ public class TelaPrincipal extends javax.swing.JFrame
         jDesktopPane2.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(botaoAdicionarTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(botaoRemoverTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(DataEntradaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(DataSaidaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(PlacaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(local1Consulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(local2Consulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(local3Consulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(local4Consulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(DataEntradaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(DataSaidaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -792,16 +792,17 @@ public class TelaPrincipal extends javax.swing.JFrame
                                         .addGap(18, 18, 18)
                                         .addComponent(IDConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(MarcaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(DonoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(local1Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ModeloConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(local2Consulta))))
+                                    .addComponent(DonoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(DataEntradaConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                                    .addComponent(DataSaidaConsulta)))))
+                                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ModeloConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jDesktopPane2Layout.createSequentialGroup()
+                                        .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(DataSaidaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(DataEntradaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(local1Consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGap(207, 207, 207)
                         .addComponent(jLabel4))
@@ -833,7 +834,9 @@ public class TelaPrincipal extends javax.swing.JFrame
                                 .addGap(96, 96, 96)
                                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(local4Consulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(local3Consulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(local3Consulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(local2Consulta)))))
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGap(189, 189, 189)
@@ -842,7 +845,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                         .addComponent(botaoRemoverTarefaConsulta)
                         .addGap(137, 137, 137))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
                                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -891,27 +894,27 @@ public class TelaPrincipal extends javax.swing.JFrame
                     .addComponent(jLabel6)
                     .addComponent(MarcaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20)
                     .addComponent(ModeloConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(13, 13, 13)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(DataEntradaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(local1Consulta)
-                    .addComponent(local3Consulta))
+                    .addComponent(local3Consulta)
+                    .addComponent(DataEntradaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
-                    .addComponent(DataSaidaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(local2Consulta)
-                    .addComponent(local4Consulta))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                    .addComponent(local4Consulta)
+                    .addComponent(DataSaidaConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoEditarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoSalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoExcluirConsulta))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1164,7 +1167,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             return;
         }
         
-        if(isFormattedTextFieldEmpty(DataEntradaCadastro))
+        if(isTextFieldEmpty(DataEntradaCadastro))
         {
             showDialog("ERRO", "Você deve informar a data de entrada!");
             return;
@@ -1172,7 +1175,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         
         if(isValidDate(DataEntradaCadastro.getText()) == false){return;}
         
-        if(isFormattedTextFieldEmpty(DataSaidaCadastro))
+        if(isTextFieldEmpty(DataSaidaCadastro) == false)
         {
             if(isValidDate(DataSaidaCadastro.getText()) == false){return;}
         }
@@ -1193,7 +1196,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
             else if(isEditButtonClicked == true)
             {
-                refreshGlobalCarData();
+                refreshQueryFieldsData();
                 isUserEditing(false);  
             }
         }
@@ -1226,7 +1229,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             return;
         }
         
-        if(isFormattedTextFieldEmpty(DataEntradaConsulta))
+        if(isTextFieldEmpty(DataEntradaConsulta))
         {
             showDialog("ERRO", "Você deve informar a data de entrada!");
             return;
@@ -1237,7 +1240,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             return;
         }
         
-        if(isFormattedTextFieldEmpty(DataSaidaConsulta))
+        if(isTextFieldEmpty(DataSaidaConsulta) == false)
         {
             if(isValidDate(DataSaidaConsulta.getText()) == false)
             {
@@ -1345,10 +1348,10 @@ public class TelaPrincipal extends javax.swing.JFrame
     private javax.swing.JButton BotaoPesquisar;
     private javax.swing.JTextArea ComentariosCadastro;
     private javax.swing.JTextArea ComentariosConsulta;
-    private javax.swing.JFormattedTextField DataEntradaCadastro;
-    private javax.swing.JFormattedTextField DataEntradaConsulta;
-    private javax.swing.JFormattedTextField DataSaidaCadastro;
-    private javax.swing.JFormattedTextField DataSaidaConsulta;
+    private javax.swing.JTextField DataEntradaCadastro;
+    private javax.swing.JTextField DataEntradaConsulta;
+    private javax.swing.JTextField DataSaidaCadastro;
+    private javax.swing.JTextField DataSaidaConsulta;
     private javax.swing.JTextField DonoCadastro;
     private javax.swing.JTextField DonoConsulta;
     private javax.swing.JTextField IDConsulta;
@@ -1598,11 +1601,6 @@ public class TelaPrincipal extends javax.swing.JFrame
     {
         return textField.getDocument().getLength() == 0;
     }
-    
-    private boolean isFormattedTextFieldEmpty(javax.swing.JFormattedTextField textField)
-    {
-        return textField.getDocument().getLength() == 0;
-    }
       
     private void showDialog(String title,String text)
     {
@@ -1716,7 +1714,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         {
             globalCar = (carList.get(selectionScreen.ReturnSelectedCar()));
             
-            setGlobalCarQueryData();
+            setQueryDataByGlobalCar();
             PopulateOrRefreshTasks(globalCar.getPlate());
             
             if(isEditButtonClicked == true)
@@ -1775,7 +1773,7 @@ public class TelaPrincipal extends javax.swing.JFrame
     {
         try
         {
-            setGlobalCarRegisterData();
+            setGlobalCarByQueryData();
 
             carController.update(globalCar);
             showDialog("CONFIRMAÇÃO", "As informações foram salvas");
@@ -1792,7 +1790,7 @@ public class TelaPrincipal extends javax.swing.JFrame
     {
         try
         {
-            setGlobalCarRegisterData();
+            setGlobalCarByRegisterData();
             
             for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
             {
@@ -1835,7 +1833,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         modelRegister.setRowCount(0);
     }
     
-    private void setGlobalCarRegisterData()
+    private void setGlobalCarByRegisterData()
     {
         try
         {
@@ -1862,7 +1860,34 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
     }
     
-    private void setGlobalCarQueryData()
+    private void setGlobalCarByQueryData()
+    {
+        try
+        {
+            globalCar.setPlate(PlacaConsulta.getText());
+            globalCar.setOwner(DonoConsulta.getText());
+            globalCar.setBrand(MarcaConsulta.getText());
+            globalCar.setModel(ModeloConsulta.getText());
+            globalCar.setEntrance(format.parse(DataEntradaConsulta.getText()));
+
+            if (DataSaidaConsulta.getDocument().getLength() != 0) 
+            {
+                globalCar.setExit(format.parse(DataSaidaConsulta.getText()));
+            }
+
+            globalCar.setComments(ComentariosConsulta.getText());
+            globalCar.setInFirstLocal(local1Consulta.isSelected());
+            globalCar.setInSecondLocal(local2Consulta.isSelected());
+            globalCar.setInThirdLocal(local3Consulta.isSelected());
+            globalCar.setInFourthLocal(local4Consulta.isSelected());
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void setQueryDataByGlobalCar()
     {
         try
         {
@@ -1886,7 +1911,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             local1Consulta.setSelected(globalCar.isInFirstLocal());
             local2Consulta.setSelected(globalCar.isInSecondLocal());
             local3Consulta.setSelected(globalCar.isInThirdLocal());
-            local4Consulta.setSelected(globalCar.isInFourthLocal());
+            local4Consulta.setSelected(globalCar.isInFourthLocal()); 
         }
         catch (Exception ex) 
         {
@@ -1894,7 +1919,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         }
     }
     
-    private void refreshGlobalCarData() 
+    private void refreshQueryFieldsData() 
     {
         if (!"".equals(IDConsulta.getText())) 
         {
@@ -1903,7 +1928,9 @@ public class TelaPrincipal extends javax.swing.JFrame
             DonoConsulta.setText(globalCar.getOwner());
             MarcaConsulta.setText(globalCar.getBrand());
             ModeloConsulta.setText(globalCar.getModel());
+            
             DataEntradaConsulta.setText(format.format(globalCar.getEntrance()));
+            
             if(!"31/12/1969".equals(format.format(globalCar.getExit())))
             {
                 DataSaidaConsulta.setText(format.format(globalCar.getExit()));
@@ -1912,6 +1939,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 DataSaidaConsulta.setText("");
             }
+            
             ComentariosConsulta.setText(globalCar.getComments());
             local1Consulta.setSelected(globalCar.isInFirstLocal());
             local2Consulta.setSelected(globalCar.isInSecondLocal());
@@ -1925,7 +1953,7 @@ public class TelaPrincipal extends javax.swing.JFrame
     {
         try 
         {
-            globalCar = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
+            globalCar = carController.getById(Integer.valueOf(BarraDePesquisa.getText()));
 
             if (globalCar.getPlate() == null) 
             {
@@ -1933,7 +1961,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 return;
             }
 
-            setGlobalCarQueryData();
+            setQueryDataByGlobalCar();
             
             PopulateOrRefreshTasks(globalCar.getPlate());
             
