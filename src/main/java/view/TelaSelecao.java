@@ -227,15 +227,12 @@ public class TelaSelecao extends javax.swing.JDialog
 
     public void PopulateTable(List<Car> carList)
     {
-        int tamanho = carList.size();
-        list = carList;
-        Car car;
         DefaultTableModel model = (DefaultTableModel) TABELA.getModel();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
-        for(int i = 0; i < tamanho; i++)
+        for(int i = 0; i < carList.size(); i++)
         {
-            car = carList.get(i);
+            Car car = carList.get(i);
             String Placa = car.getPlate();
             String Dono = car.getOwner();
             String Marca = car.getBrand();
@@ -247,7 +244,7 @@ public class TelaSelecao extends javax.swing.JDialog
         }     
     }
     
-    public int ReturnCar()
+    public int ReturnSelectedCar()
     {
         return selectedCar;
     }

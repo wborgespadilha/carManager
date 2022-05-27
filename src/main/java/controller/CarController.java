@@ -165,7 +165,7 @@ public class CarController
         }
     }
     
-    public void delete(Car carro)
+    public void delete(Car car)
     {
         String sql = "DELETE FROM carros WHERE ID = ?";
         Connection con = null;
@@ -175,7 +175,7 @@ public class CarController
         {
             con = ConnectionFactory.getConnection();
             statement = con.prepareStatement(sql);
-            statement.setInt(1, carro.getId());
+            statement.setInt(1, car.getId());
             statement.execute();
         }
         catch(Exception e)

@@ -10,7 +10,7 @@ public class TelaConfirmacaoTarefa extends javax.swing.JDialog
 {
 
     TaskController taskController = new TaskController();
-    int deleted = -1;
+    boolean deleted = false;
     Task task;
     
     public TelaConfirmacaoTarefa(java.awt.Frame parent, boolean modal) 
@@ -147,7 +147,7 @@ public class TelaConfirmacaoTarefa extends javax.swing.JDialog
     private void SIMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SIMMouseClicked
         try
         {
-            deleted = 0;
+            deleted = true;
             taskController.deleteTask(task);
             TelaDialogo dialogo = new TelaDialogo(null,true);
             dialogo.SetMessage("SUCESSO", "A tarefa foi excluida com sucesso!");
@@ -214,7 +214,7 @@ public class TelaConfirmacaoTarefa extends javax.swing.JDialog
         this.task = task;
         labelTarefa.setText(task.getTitle());
     }
-    public int State()
+    public boolean isYesButtonClicked()
     {
         return deleted;
     }

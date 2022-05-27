@@ -17,8 +17,8 @@ public class TelaPrincipal extends javax.swing.JFrame
 
     CarController carController;
     TaskController taskController;
-    Car car;
-    Boolean clicked;//flag botão editar
+    Car globalCar;
+    Boolean isEditButtonClicked;
     List<Car> carList;
     List<Task> taskList;
     SimpleDateFormat format;
@@ -30,8 +30,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         initComponents();
         carController = new CarController();
         taskController = new TaskController();
-        car = new Car();
-        clicked = false;
+        globalCar = new Car();
+        isEditButtonClicked = false;
         format = new SimpleDateFormat("dd/MM/yyyy");
         this.modelRegister = (DefaultTableModel) tabelaCadastro.getModel();
         this.modelQuery = (DefaultTableModel) tabelaConsulta.getModel();
@@ -40,8 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
         jDialog2 = new javax.swing.JDialog();
@@ -74,8 +73,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel19 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaCadastro = new javax.swing.JTable();
-        AdicionarTarefaCadastro = new javax.swing.JButton();
-        RemoverTarefaCadastro = new javax.swing.JButton();
+        botaoAdicionarTarefaCadastro = new javax.swing.JButton();
+        botaoRemoverTarefaCadastro = new javax.swing.JButton();
         DataEntradaCadastro = new javax.swing.JFormattedTextField();
         DataSaidaCadastro = new javax.swing.JFormattedTextField();
         PlacaCadastro = new javax.swing.JFormattedTextField();
@@ -99,9 +98,9 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel20 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        EditarConsulta = new javax.swing.JButton();
-        SalvarConsulta = new javax.swing.JButton();
-        ExcluirConsulta = new javax.swing.JButton();
+        botaoEditarConsulta = new javax.swing.JButton();
+        botaoSalvarConsulta = new javax.swing.JButton();
+        botaoExcluirConsulta = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         IDConsulta = new javax.swing.JTextField();
         MarcaConsulta = new javax.swing.JTextField();
@@ -111,8 +110,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel31 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tabelaConsulta = new javax.swing.JTable();
-        AdicionarTarefaConsulta = new javax.swing.JButton();
-        RemoverTarefaConsulta = new javax.swing.JButton();
+        botaoAdicionarTarefaConsulta = new javax.swing.JButton();
+        botaoRemoverTarefaConsulta = new javax.swing.JButton();
         DataEntradaConsulta = new javax.swing.JFormattedTextField();
         DataSaidaConsulta = new javax.swing.JFormattedTextField();
         PlacaConsulta = new javax.swing.JFormattedTextField();
@@ -286,10 +285,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jScrollPane2.setViewportView(ComentariosCadastro);
 
         BotaoCadastrar.setText("Cadastrar");
-        BotaoCadastrar.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        BotaoCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BotaoCadastrarMouseClicked(evt);
             }
         });
@@ -317,23 +314,18 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel19.setText("Tarefas*:");
 
         tabelaCadastro.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Data da tarefa", "Título da tarefa ", "Comentários"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
@@ -341,8 +333,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         tabelaCadastro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaCadastro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(tabelaCadastro);
-        if (tabelaCadastro.getColumnModel().getColumnCount() > 0)
-        {
+        if (tabelaCadastro.getColumnModel().getColumnCount() > 0) {
             tabelaCadastro.getColumnModel().getColumn(0).setMinWidth(90);
             tabelaCadastro.getColumnModel().getColumn(0).setPreferredWidth(90);
             tabelaCadastro.getColumnModel().getColumn(0).setMaxWidth(90);
@@ -351,31 +342,25 @@ public class TelaPrincipal extends javax.swing.JFrame
             tabelaCadastro.getColumnModel().getColumn(1).setMaxWidth(150);
         }
 
-        AdicionarTarefaCadastro.setText("Adicionar Tarefa");
-        AdicionarTarefaCadastro.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                AdicionarTarefaCadastroMouseClicked(evt);
+        botaoAdicionarTarefaCadastro.setText("Adicionar Tarefa");
+        botaoAdicionarTarefaCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoAdicionarTarefaCadastroMouseClicked(evt);
             }
         });
 
-        RemoverTarefaCadastro.setText("Remover Tarefa");
-        RemoverTarefaCadastro.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                RemoverTarefaCadastroMouseClicked(evt);
+        botaoRemoverTarefaCadastro.setText("Remover Tarefa");
+        botaoRemoverTarefaCadastro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoRemoverTarefaCadastroMouseClicked(evt);
             }
         });
 
         DataEntradaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
-        try
-        {
+        try {
             PlacaCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU#A##")));
-        } catch (java.text.ParseException ex)
-        {
+        } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
@@ -408,8 +393,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jDesktopPane4.setLayer(jLabel36, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(jLabel19, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(jScrollPane5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane4.setLayer(AdicionarTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane4.setLayer(RemoverTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane4.setLayer(botaoAdicionarTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane4.setLayer(botaoRemoverTarefaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(DataEntradaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(DataSaidaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane4.setLayer(PlacaCadastro, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -471,8 +456,8 @@ public class TelaPrincipal extends javax.swing.JFrame
                         .addComponent(BotaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(185, 185, 185)
                         .addGroup(jDesktopPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AdicionarTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RemoverTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botaoAdicionarTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoRemoverTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(105, 105, 105))
                     .addGroup(jDesktopPane4Layout.createSequentialGroup()
                         .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -550,9 +535,9 @@ public class TelaPrincipal extends javax.swing.JFrame
                         .addGap(19, 19, 19))
                     .addGroup(jDesktopPane4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(AdicionarTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoAdicionarTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(RemoverTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoRemoverTarefaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51))))
         );
 
@@ -567,10 +552,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         SelecionarTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Placa", "Dono", "Marca", "Modelo", "Data de entrada", "Data de saída", "Data da tarefa", "VOSS", "BLUCAR", "TERCEIROS", "OFICINA", " " }));
 
         BotaoPesquisar.setText("Buscar");
-        BotaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
+        BotaoPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 BotaoPesquisarMouseClicked(evt);
             }
         });
@@ -615,31 +598,25 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Data Entrada:");
 
-        EditarConsulta.setText("Editar");
-        EditarConsulta.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                EditarConsultaMouseClicked(evt);
+        botaoEditarConsulta.setText("Editar");
+        botaoEditarConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoEditarConsultaMouseClicked(evt);
             }
         });
 
-        SalvarConsulta.setText("Salvar");
-        SalvarConsulta.setEnabled(false);
-        SalvarConsulta.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                SalvarConsultaMouseClicked(evt);
+        botaoSalvarConsulta.setText("Salvar");
+        botaoSalvarConsulta.setEnabled(false);
+        botaoSalvarConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoSalvarConsultaMouseClicked(evt);
             }
         });
 
-        ExcluirConsulta.setText("Excluir");
-        ExcluirConsulta.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                ExcluirConsultaMouseClicked(evt);
+        botaoExcluirConsulta.setText("Excluir");
+        botaoExcluirConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoExcluirConsultaMouseClicked(evt);
             }
         });
 
@@ -668,32 +645,25 @@ public class TelaPrincipal extends javax.swing.JFrame
         jLabel31.setText("Tarefas:");
 
         tabelaConsulta.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][]
-            {
+            new Object [][] {
 
             },
-            new String []
-            {
+            new String [] {
                 "Data da tarefa", "Título da tarefa ", "Comentários"
             }
-        )
-        {
-            Class[] types = new Class []
-            {
+        ) {
+            Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean []
-            {
+            boolean[] canEdit = new boolean [] {
                 true, false, true
             };
 
-            public Class getColumnClass(int columnIndex)
-            {
+            public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
 
-            public boolean isCellEditable(int rowIndex, int columnIndex)
-            {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
@@ -701,8 +671,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         tabelaConsulta.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tabelaConsulta.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane6.setViewportView(tabelaConsulta);
-        if (tabelaConsulta.getColumnModel().getColumnCount() > 0)
-        {
+        if (tabelaConsulta.getColumnModel().getColumnCount() > 0) {
             tabelaConsulta.getColumnModel().getColumn(0).setMinWidth(90);
             tabelaConsulta.getColumnModel().getColumn(0).setPreferredWidth(90);
             tabelaConsulta.getColumnModel().getColumn(0).setMaxWidth(90);
@@ -711,23 +680,19 @@ public class TelaPrincipal extends javax.swing.JFrame
             tabelaConsulta.getColumnModel().getColumn(1).setMaxWidth(150);
         }
 
-        AdicionarTarefaConsulta.setText("Adicionar Tarefa");
-        AdicionarTarefaConsulta.setEnabled(false);
-        AdicionarTarefaConsulta.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                AdicionarTarefaConsultaMouseClicked(evt);
+        botaoAdicionarTarefaConsulta.setText("Adicionar Tarefa");
+        botaoAdicionarTarefaConsulta.setEnabled(false);
+        botaoAdicionarTarefaConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoAdicionarTarefaConsultaMouseClicked(evt);
             }
         });
 
-        RemoverTarefaConsulta.setText("Remover Tarefa");
-        RemoverTarefaConsulta.setEnabled(false);
-        RemoverTarefaConsulta.addMouseListener(new java.awt.event.MouseAdapter()
-        {
-            public void mouseClicked(java.awt.event.MouseEvent evt)
-            {
-                RemoverTarefaConsultaMouseClicked(evt);
+        botaoRemoverTarefaConsulta.setText("Remover Tarefa");
+        botaoRemoverTarefaConsulta.setEnabled(false);
+        botaoRemoverTarefaConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botaoRemoverTarefaConsultaMouseClicked(evt);
             }
         });
 
@@ -739,11 +704,9 @@ public class TelaPrincipal extends javax.swing.JFrame
         DataSaidaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
         DataSaidaConsulta.setEnabled(false);
 
-        try
-        {
+        try {
             PlacaConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU#A##")));
-        } catch (java.text.ParseException ex)
-        {
+        } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         PlacaConsulta.setDisabledTextColor(new java.awt.Color(51, 51, 51));
@@ -779,9 +742,9 @@ public class TelaPrincipal extends javax.swing.JFrame
         jDesktopPane2.setLayer(jLabel20, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel25, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel26, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(EditarConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(SalvarConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(ExcluirConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(botaoEditarConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(botaoSalvarConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(botaoExcluirConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(IDConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(MarcaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -790,8 +753,8 @@ public class TelaPrincipal extends javax.swing.JFrame
         jDesktopPane2.setLayer(jLabel24, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jLabel31, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(jScrollPane6, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(AdicionarTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane2.setLayer(RemoverTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(botaoAdicionarTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(botaoRemoverTarefaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(DataEntradaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(DataSaidaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(PlacaConsulta, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -859,13 +822,13 @@ public class TelaPrincipal extends javax.swing.JFrame
                                 .addComponent(SelecionarTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGap(117, 117, 117)
-                        .addComponent(EditarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoEditarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jDesktopPane2Layout.createSequentialGroup()
-                                .addComponent(SalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(botaoSalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(52, 52, 52)
-                                .addComponent(ExcluirConsulta))
+                                .addComponent(botaoExcluirConsulta))
                             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                                 .addGap(96, 96, 96)
                                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -874,9 +837,9 @@ public class TelaPrincipal extends javax.swing.JFrame
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane2Layout.createSequentialGroup()
                         .addGap(189, 189, 189)
-                        .addComponent(AdicionarTarefaConsulta)
+                        .addComponent(botaoAdicionarTarefaConsulta)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(RemoverTarefaConsulta)
+                        .addComponent(botaoRemoverTarefaConsulta)
                         .addGap(137, 137, 137))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -945,9 +908,9 @@ public class TelaPrincipal extends javax.swing.JFrame
                     .addComponent(local4Consulta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EditarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ExcluirConsulta))
+                    .addComponent(botaoEditarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoSalvarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoExcluirConsulta))
                 .addContainerGap(45, Short.MAX_VALUE))
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
@@ -960,8 +923,8 @@ public class TelaPrincipal extends javax.swing.JFrame
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addGap(26, 26, 26)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AdicionarTarefaConsulta)
-                    .addComponent(RemoverTarefaConsulta))
+                    .addComponent(botaoAdicionarTarefaConsulta)
+                    .addComponent(botaoRemoverTarefaConsulta))
                 .addGap(40, 40, 40))
         );
 
@@ -1111,25 +1074,26 @@ public class TelaPrincipal extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotaoPesquisarMouseClicked
-        int selected = SelecionarTipo.getSelectedIndex();
+        
+        int selectedRow = SelecionarTipo.getSelectedIndex();
 
-        //Requisita a inserção de dados, exceto para as localizações dos veículos
-        if(selected != 8 && selected != 9 && selected != 10 && selected != 11)
+        //Requisita a inserção de dados, exceto para as localizações dos veículos 
+        
+        if(selectedRow != 8 && selectedRow != 9 && selectedRow != 10 && selectedRow != 11)
         {
-            if(BarraDePesquisa.getDocument().getLength() == 0)
+            if(isTextFieldEmpty(BarraDePesquisa))
             {
-                mostrarDialogo("ERRO", "Você deve informar os dados!");
+                showDialog("ERRO", "Você deve informar os dados!");
                 return;      
             }     
         }
 
-        switch(selected)
+        switch(selectedRow)
         {
             case 0 -> //ID
             {
                 fetchCarByID();
                 return;
- 
             }
             case 1 -> //Placa
             {
@@ -1137,129 +1101,43 @@ public class TelaPrincipal extends javax.swing.JFrame
             }
             case 2 -> //Dono
             {
-                try
-                {
-                    carList = carController.getByOwner(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByOwner();
             }
             case 3 -> //Marca
             {
-                try
-                {
-                    carList = carController.getByBrand(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByBrand();
             }
             case 4 -> //Modelo
             {
-                try
-                {
-                    carList = carController.getByModel(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByModel();
             }
             case 5 -> //Entrada
             {
-                try
-                {
-                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
-
-                    carList = carController.getByEntrance(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByEntrance();
             }
             case 6 -> //Saida
             {
-                try
-                {
-                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
-
-                    carList = carController.getByExit(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                   JOptionPane.showMessageDialog(rootPane, ex.getMessage()); 
-                }            
+                fetchCarByExit();            
             }
             case 7 ->//Data da tarefa
             {
-                try
-                {
-                    if(isValidDate(BarraDePesquisa.getText()) == false){return;}
-
-                    carList = taskController.getCarByTask(BarraDePesquisa.getText());
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                   JOptionPane.showMessageDialog(rootPane, ex.getMessage()); 
-                }    
+                fetchCarByTaskDay(); 
             }
             case 8 ->//VOSS - local1
             {
-                try
-                {
-                    carList = carController.getByFirstLocal();
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByFirstLocal();
             }
             case 9 ->//BLUCAR - local2
             {
-                try
-                {
-                    carList = carController.getBySecondLocal();
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarBySecondLocal();
             }
             case 10 ->//TERCEIROS - local3
             {
-                try
-                {
-                    carList = carController.getByThirdLocal();
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByThirdLocal();
             }
             case 11 ->//OFICINA - local4
             {
-                try
-                {
-                    carList = carController.getByFourthLocal();
-                    checkResult(carList);
-                }
-                catch(Exception ex)
-                {
-                    JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-                }
+                fetchCarByFourthLocal();
             }
         }   
     }//GEN-LAST:event_BotaoPesquisarMouseClicked
@@ -1268,267 +1146,162 @@ public class TelaPrincipal extends javax.swing.JFrame
         // Unico botão da tela CADASTRAR
         // Faz a validação de todos os parâmetros
         
-        if(DonoCadastro.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(DonoCadastro))
         {
-            mostrarDialogo("ERRO", "Você deve informar o dono!");
+            showDialog("ERRO", "Você deve informar o dono!");
             return;
         }
         
-        if(MarcaCadastro.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(MarcaCadastro))
         {
-            mostrarDialogo("ERRO", "Você deve informar a marca!");
+            showDialog("ERRO", "Você deve informar a marca!");
             return;
         }
         
-        if(ModeloCadastro.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(ModeloCadastro))
         {
-            mostrarDialogo("ERRO", "Você deve informar o modelo!");
+            showDialog("ERRO", "Você deve informar o modelo!");
             return;
         }
         
-        if(DataEntradaCadastro.getDocument().getLength() == 0)
+        if(isFormattedTextFieldEmpty(DataEntradaCadastro))
         {
-            mostrarDialogo("ERRO", "Você deve informar a data de entrada!");
+            showDialog("ERRO", "Você deve informar a data de entrada!");
             return;
         }
         
         if(isValidDate(DataEntradaCadastro.getText()) == false){return;}
         
-        if(DataSaidaCadastro.getDocument().getLength() != 0)
+        if(isFormattedTextFieldEmpty(DataSaidaCadastro))
         {
             if(isValidDate(DataSaidaCadastro.getText()) == false){return;}
         }
         
-        for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Primeiramente valida toda a tabela
+        if(isRegisterTableValid())
         {
-            String date = (String) tabelaCadastro.getValueAt(i, 0);
-            if(date == null)
-            {
-                mostrarDialogo("ERRO", "Você deve informar a data da tarefa!");
-                return;
-            }
-            if(isValidDate(date) == false){return;}
-            
-            String titulo = (String) tabelaCadastro.getValueAt(i, 1);
-            if(titulo == null)
-            {
-                mostrarDialogo("ERRO", "Você deve informar o título da tarefa!");
-                return;
-            }
+            createCar();
         }
         
-        try
-        {
-            //Guarda os dados no objeto
-            car.setPlate(PlacaCadastro.getText());
-            car.setOwner(DonoCadastro.getText());
-            car.setBrand(MarcaCadastro.getText());
-            car.setModel(ModeloCadastro.getText());
-            car.setEntrance(format.parse(DataEntradaCadastro.getText()));
-            
-            if(DataSaidaCadastro.getDocument().getLength() != 0)
-            {
-                car.setExit(format.parse(DataSaidaCadastro.getText()));
-            }
-            
-            car.setComments(ComentariosCadastro.getText());
-            car.setInFirstLocal(local1Cadastro.isSelected());
-            car.setInSecondLocal(local2Cadastro.isSelected());
-            car.setInThirdLocal(local3Cadastro.isSelected());
-            car.setInFourthLocal(local4Cadastro.isSelected());
-            
-            for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
-            {
-                Task task = new Task();
-                Date dataTabela = format.parse((String) tabelaCadastro.getValueAt(i, 0));
-                task.setTaskDate(dataTabela);
-                task.setTitle((String) tabelaCadastro.getValueAt(i, 1));
-                task.setText((String) tabelaCadastro.getValueAt(i, 2));
-                task.setPlate(PlacaCadastro.getText());
-                taskController.saveTask(task); //Salva as tarefas no banco de dados
-            }
-
-            // Cria a linha no banco de dados
-            carController.create(car);
-            
-            // Retorna uma tela informando sucesso da operação
-            mostrarDialogo("SUCESSO", "O carro foi cadastrado com sucesso!");
-
-            //Limpa os campos
-            clearCadastro();
-        }
-        catch(Exception ex)
-        {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
-        }
     }//GEN-LAST:event_BotaoCadastrarMouseClicked
 
-    private void EditarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditarConsultaMouseClicked
-        if(!"".equals(IDConsulta.getText()))
+    private void botaoEditarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoEditarConsultaMouseClicked
+        if(isTextFieldEmpty(IDConsulta) ==  false)
         {
-            if(clicked == false)
+            if(isEditButtonClicked == false)
             {
-                //Habilitar os campos e o botão salvar
-                changeEditar(true);
+                isUserEditing(true);
             }
-            else if(clicked == true)
+            else if(isEditButtonClicked == true)
             {
-                //Atualiza com as informações do objeto carro
-                //Para caso deshabilite a edição sem salvar
-                if(!"".equals(IDConsulta.getText()))
-                {
-                    PlacaConsulta.setText(car.getPlate());
-                    DonoConsulta.setText(car.getOwner());
-                    MarcaConsulta.setText(car.getBrand());
-                    ModeloConsulta.setText(car.getModel());
-                    DataEntradaConsulta.setText(format.format(car.getEntrance()));
-                    if(!"31/12/1969".equals(format.format(car.getExit())))
-                    {
-                        DataSaidaConsulta.setText(format.format(car.getExit()));
-                    }
-                    else
-                    {
-                        DataSaidaConsulta.setText("");
-                    }
-                    local1Consulta.setSelected(car.isInFirstLocal());
-                    local2Consulta.setSelected(car.isInSecondLocal());
-                    local3Consulta.setSelected(car.isInThirdLocal());
-                    local4Consulta.setSelected(car.isInFourthLocal());
-                    PopularTarefas(car.getPlate());
-                }
-                //Deshabilita os campos e o botão salvar
-                changeEditar(false);  
+                refreshGlobalCarData();
+                isUserEditing(false);  
             }
         }
-    }//GEN-LAST:event_EditarConsultaMouseClicked
+    }//GEN-LAST:event_botaoEditarConsultaMouseClicked
 
-    private void SalvarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalvarConsultaMouseClicked
+    private void botaoSalvarConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoSalvarConsultaMouseClicked
 
         // Faz a validação de todos os parâmetros
-        if(PlacaConsulta.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(PlacaConsulta))
         {
-            mostrarDialogo("ERRO", "Você deve informar a placa!");
+            showDialog("ERRO", "Você deve informar a placa!");
             return;
         }
         
-        if(DonoConsulta.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(DonoConsulta))
         {
-            mostrarDialogo("ERRO", "Você deve informar o dono!");
+            showDialog("ERRO", "Você deve informar o dono!");
             return;
         }
         
-        if(MarcaConsulta.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(MarcaConsulta))
         {
-            mostrarDialogo("ERRO", "Você deve informar a marca!");
+            showDialog("ERRO", "Você deve informar a marca!");
             return;
         }
         
-        if(ModeloConsulta.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(ModeloConsulta))
         {
-            mostrarDialogo("ERRO", "Você deve informar o modelo!");
+            showDialog("ERRO", "Você deve informar o modelo!");
             return;
         }
         
-        if(DataEntradaConsulta.getDocument().getLength() == 0)
+        if(isFormattedTextFieldEmpty(DataEntradaConsulta))
         {
-            mostrarDialogo("ERRO", "Você deve informar a data de entrada!");
+            showDialog("ERRO", "Você deve informar a data de entrada!");
             return;
         }
         
-        if(isValidDate(DataEntradaConsulta.getText()) == false){return;}
-        
-        if(DataSaidaConsulta.getDocument().getLength() != 0)
+        if(isValidDate(DataEntradaConsulta.getText()) == false)
         {
-            if(isValidDate(DataSaidaConsulta.getText()) == false){return;}
+            return;
         }
         
-        try
+        if(isFormattedTextFieldEmpty(DataSaidaConsulta))
         {
-            //Guarda os dados no objeto
-            car.setPlate(PlacaConsulta.getText());
-            car.setOwner(DonoConsulta.getText());
-            car.setBrand(MarcaConsulta.getText());
-            car.setModel(ModeloConsulta.getText());
-            car.setEntrance(format.parse(DataEntradaConsulta.getText()));
-            
-            if(DataSaidaConsulta.getDocument().getLength() != 0)
+            if(isValidDate(DataSaidaConsulta.getText()) == false)
             {
-                car.setExit(format.parse(DataSaidaConsulta.getText()));
+                return;
             }
-            car.setComments(ComentariosConsulta.getText());
-            car.setInFirstLocal(local1Consulta.isSelected());
-            car.setInSecondLocal(local2Consulta.isSelected());
-            car.setInThirdLocal(local3Consulta.isSelected());
-            car.setInFourthLocal(local4Consulta.isSelected());
-
-            // Muda a linha no banco de dados
-            carController.update(car);
-
-
-            mostrarDialogo("CONFIRMAÇÃO", "As informações foram salvas");
-
-            //Deshabilita os campos
-            changeEditar(false);
         }
-        catch(Exception ex)
+        
+        updateCar();
+        
+    }//GEN-LAST:event_botaoSalvarConsultaMouseClicked
+
+    private void botaoExcluirConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botaoExcluirConsultaMouseClicked
+        if(isTextFieldEmpty(IDConsulta) == false)
         {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+            showDeleteConfirmation();
         }
-    }//GEN-LAST:event_SalvarConsultaMouseClicked
+    }//GEN-LAST:event_botaoExcluirConsultaMouseClicked
 
-    private void ExcluirConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExcluirConsultaMouseClicked
-        if(!"".equals(IDConsulta.getText()))
-        {
-            MostraTelaDeConfirmacao();
-        }
-    }//GEN-LAST:event_ExcluirConsultaMouseClicked
-
-    private void AdicionarTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_AdicionarTarefaCadastroMouseClicked
-    {//GEN-HEADEREND:event_AdicionarTarefaCadastroMouseClicked
+    private void botaoAdicionarTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_botaoAdicionarTarefaCadastroMouseClicked
+    {//GEN-HEADEREND:event_botaoAdicionarTarefaCadastroMouseClicked
         Object[] rowData = {};
         modelRegister.addRow(rowData);
-    }//GEN-LAST:event_AdicionarTarefaCadastroMouseClicked
+    }//GEN-LAST:event_botaoAdicionarTarefaCadastroMouseClicked
 
-    private void RemoverTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_RemoverTarefaCadastroMouseClicked
-    {//GEN-HEADEREND:event_RemoverTarefaCadastroMouseClicked
+    private void botaoRemoverTarefaCadastroMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_botaoRemoverTarefaCadastroMouseClicked
+    {//GEN-HEADEREND:event_botaoRemoverTarefaCadastroMouseClicked
         modelRegister.removeRow(tabelaCadastro.getSelectedRow());
-    }//GEN-LAST:event_RemoverTarefaCadastroMouseClicked
+    }//GEN-LAST:event_botaoRemoverTarefaCadastroMouseClicked
 
-    private void AdicionarTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_AdicionarTarefaConsultaMouseClicked
-    {//GEN-HEADEREND:event_AdicionarTarefaConsultaMouseClicked
-       if(AdicionarTarefaConsulta.isEnabled() == true)
+    private void botaoAdicionarTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_botaoAdicionarTarefaConsultaMouseClicked
+    {//GEN-HEADEREND:event_botaoAdicionarTarefaConsultaMouseClicked
+       if(botaoAdicionarTarefaConsulta.isEnabled() == true)
        {
-            TelaAdicionarTarefa dialogo = new TelaAdicionarTarefa(this.jFrame1,true);
-            dialogo.passarPlaca(PlacaConsulta.getText());
-            dialogo.setVisible(true);
+            TelaAdicionarTarefa addTask = new TelaAdicionarTarefa(this.jFrame1,true);
+            addTask.setPlate(PlacaConsulta.getText());
+            addTask.setVisible(true);
             
-            if(dialogo.State() == 1)
+            if(addTask.taskSaved() == true)
             {
-                PopularTarefas(PlacaConsulta.getText());
+                PopulateOrRefreshTasks(PlacaConsulta.getText());
+                //Refresh the table
             }
        }
-    }//GEN-LAST:event_AdicionarTarefaConsultaMouseClicked
+    }//GEN-LAST:event_botaoAdicionarTarefaConsultaMouseClicked
 
-    private void RemoverTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_RemoverTarefaConsultaMouseClicked
-    {//GEN-HEADEREND:event_RemoverTarefaConsultaMouseClicked
-        if(RemoverTarefaConsulta.isEnabled() == true)
+    private void botaoRemoverTarefaConsultaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_botaoRemoverTarefaConsultaMouseClicked
+    {//GEN-HEADEREND:event_botaoRemoverTarefaConsultaMouseClicked
+        if(botaoRemoverTarefaConsulta.isEnabled() == true)
         {
             Task task = new Task();
             task.setTitle((String) tabelaConsulta.getValueAt(tabelaConsulta.getSelectedRow(), 1));
             task.setPlate(PlacaConsulta.getText());
             
+            TelaConfirmacaoTarefa confirmDialog = new TelaConfirmacaoTarefa(this.jFrame1,true);
+            confirmDialog.PassarTarefa(task);
+            confirmDialog.setVisible(true);
             
-            TelaConfirmacaoTarefa dialogo = new TelaConfirmacaoTarefa(this.jFrame1,true);
-            dialogo.PassarTarefa(task);
-            dialogo.setVisible(true);
-            
-            if(dialogo.State() == 0)
+            if(confirmDialog.isYesButtonClicked() == true)
             {
-                PopularTarefas(PlacaConsulta.getText());
+                PopulateOrRefreshTasks(PlacaConsulta.getText());
             }
             
         }
-    }//GEN-LAST:event_RemoverTarefaConsultaMouseClicked
+    }//GEN-LAST:event_botaoRemoverTarefaConsultaMouseClicked
 
     public static void main(String args[]) 
     {
@@ -1567,8 +1340,6 @@ public class TelaPrincipal extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AdicionarTarefaCadastro;
-    private javax.swing.JButton AdicionarTarefaConsulta;
     private javax.swing.JTextField BarraDePesquisa;
     private javax.swing.JButton BotaoCadastrar;
     private javax.swing.JButton BotaoPesquisar;
@@ -1580,8 +1351,6 @@ public class TelaPrincipal extends javax.swing.JFrame
     private javax.swing.JFormattedTextField DataSaidaConsulta;
     private javax.swing.JTextField DonoCadastro;
     private javax.swing.JTextField DonoConsulta;
-    private javax.swing.JButton EditarConsulta;
-    private javax.swing.JButton ExcluirConsulta;
     private javax.swing.JTextField IDConsulta;
     private javax.swing.JTextField MarcaCadastro;
     private javax.swing.JTextField MarcaConsulta;
@@ -1589,10 +1358,14 @@ public class TelaPrincipal extends javax.swing.JFrame
     private javax.swing.JTextField ModeloConsulta;
     private javax.swing.JFormattedTextField PlacaCadastro;
     private javax.swing.JFormattedTextField PlacaConsulta;
-    private javax.swing.JButton RemoverTarefaCadastro;
-    private javax.swing.JButton RemoverTarefaConsulta;
-    private javax.swing.JButton SalvarConsulta;
     private javax.swing.JComboBox<String> SelecionarTipo;
+    private javax.swing.JButton botaoAdicionarTarefaCadastro;
+    private javax.swing.JButton botaoAdicionarTarefaConsulta;
+    private javax.swing.JButton botaoEditarConsulta;
+    private javax.swing.JButton botaoExcluirConsulta;
+    private javax.swing.JButton botaoRemoverTarefaCadastro;
+    private javax.swing.JButton botaoRemoverTarefaConsulta;
+    private javax.swing.JButton botaoSalvarConsulta;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JDesktopPane jDesktopPane3;
@@ -1663,37 +1436,37 @@ public class TelaPrincipal extends javax.swing.JFrame
     {
         if(!(data.length() == 10))
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
 
         if (!(Character.isDigit(data.charAt(0)) && Character.isDigit(data.charAt(1)))) 
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
 
         if (data.charAt(2) != '/')
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
 
         if (!(Character.isDigit(data.charAt(3)) && Character.isDigit(data.charAt(4))))
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
         if (data.charAt(5) != '/')
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
 
         if (! (Character.isDigit(data.charAt(6)) && Character.isDigit(data.charAt(7))
          && Character.isDigit(data.charAt(8)) && Character.isDigit(data.charAt(9))) )
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
         
@@ -1701,7 +1474,7 @@ public class TelaPrincipal extends javax.swing.JFrame
         
         if (i < 0 || i > 12)
         {
-            mostrarDialogo("ERRO", "A data informada é inválida!");
+            showDialog("ERRO", "A data informada é inválida!");
             return false;
         }
         
@@ -1713,7 +1486,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1724,7 +1497,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 {
                     if (j < 0 || j > 29)
                     {
-                        mostrarDialogo("ERRO", "A data informada é inválida!");
+                        showDialog("ERRO", "A data informada é inválida!");
                         return false;
                     }
                 }
@@ -1732,7 +1505,7 @@ public class TelaPrincipal extends javax.swing.JFrame
                 {
                     if (j < 0 || j > 28)
                     {
-                        mostrarDialogo("ERRO", "A data informada é inválida!");
+                        showDialog("ERRO", "A data informada é inválida!");
                         return false;
                     }
                 }
@@ -1741,7 +1514,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1749,7 +1522,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 30)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1757,7 +1530,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1765,7 +1538,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 30)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1773,7 +1546,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1781,7 +1554,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1789,7 +1562,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 30)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1797,7 +1570,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1805,7 +1578,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 30)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1813,7 +1586,7 @@ public class TelaPrincipal extends javax.swing.JFrame
             {
                 if (j < 0 || j > 31)
                 {
-                    mostrarDialogo("ERRO", "A data informada é inválida!");
+                    showDialog("ERRO", "A data informada é inválida!");
                     return false;
                 }
             }
@@ -1821,156 +1594,90 @@ public class TelaPrincipal extends javax.swing.JFrame
         return true;
     }
 
-    public void MostrarTelaDeSelecao(List<Car> carList)
+    private boolean isTextFieldEmpty(javax.swing.JTextField textField)
     {
-        TelaSelecao telaSelecao = new TelaSelecao(this,true);
-        telaSelecao.PopulateTable(carList);
-        telaSelecao.setVisible(true);
-        
-        if(telaSelecao.ReturnCar()!= -1)
-        {
-            car = (carList.get(telaSelecao.ReturnCar()));
-            PlacaConsulta.setText(car.getPlate());
-            IDConsulta.setText(Integer.toString(car.getId()));
-            DonoConsulta.setText(car.getOwner());
-            MarcaConsulta.setText(car.getBrand());
-            ModeloConsulta.setText(car.getModel());
-            DataEntradaConsulta.setText(format.format(car.getEntrance()));
-            if(!"31/12/1969".equals(format.format(car.getExit())))
-            {
-                DataSaidaConsulta.setText(format.format(car.getExit()));
-            }
-            else
-            {
-                DataSaidaConsulta.setText("");
-            }
-            ComentariosConsulta.setText(car.getComments());
-            local1Consulta.setSelected(car.isInFirstLocal());
-            local2Consulta.setSelected(car.isInSecondLocal());
-            local3Consulta.setSelected(car.isInThirdLocal());
-            local4Consulta.setSelected(car.isInFourthLocal());
-            PopularTarefas(car.getPlate());
-            if(clicked == true)
-            {
-                changeEditar(false);
-            }
-        }
+        return textField.getDocument().getLength() == 0;
     }
     
-    public void MostraTelaDeConfirmacao()
+    private boolean isFormattedTextFieldEmpty(javax.swing.JFormattedTextField textField)
     {
-        TelaConfirmacao dialogo = new TelaConfirmacao(this.jFrame1,true);
-        dialogo.PassarCarro(car);
+        return textField.getDocument().getLength() == 0;
+    }
+      
+    private void showDialog(String title,String text)
+    {
+        TelaDialogo dialogo = new TelaDialogo(this.jFrame1,true);
+        dialogo.SetMessage(title, text);
         dialogo.setVisible(true);
-
-        if(dialogo.State()== 0)
+    }
+    
+    private boolean isRegisterTableValid()
+    {
+        for(int i = 0; i < tabelaCadastro.getRowCount(); i++)
         {
-            car.setPlate(null);
-            car.setOwner(null);
-            car.setBrand(null);
-            car.setModel(null);
-            car.setEntrance(null);
-            car.setExit(null);
-            car.setComments(null);
-            car.setInFirstLocal(false);
-            car.setInSecondLocal(false);
-            car.setInThirdLocal(false);
-            car.setInFourthLocal(false);
-            if(clicked == true)
+            String date = (String) tabelaCadastro.getValueAt(i, 0);
+            
+            if(date == null)
             {
-                changeEditar(false);
+                showDialog("ERRO", "Você deve informar a data da tarefa!");
+                return false;
+            }
+            
+            if(isValidDate(date) == false)
+            {
+                return false;
+            }
+            
+            String titulo = (String) tabelaCadastro.getValueAt(i, 1);
+            
+            if(titulo == null)
+            {
+                showDialog("ERRO", "Você deve informar o título da tarefa!");
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void showDeleteConfirmation()
+    {
+        TelaConfirmacao confirmDialog = new TelaConfirmacao(this.jFrame1,true);
+        confirmDialog.SetCar(globalCar);
+        confirmDialog.setVisible(true);
+
+        if(confirmDialog.wasConfirmed()== true)
+        {
+            globalCar.setPlate(null);
+            globalCar.setOwner(null);
+            globalCar.setBrand(null);
+            globalCar.setModel(null);
+            globalCar.setEntrance(null);
+            globalCar.setExit(null);
+            globalCar.setComments(null);
+            globalCar.setInFirstLocal(false);
+            globalCar.setInSecondLocal(false);
+            globalCar.setInThirdLocal(false);
+            globalCar.setInFourthLocal(false);
+            
+            if(isEditButtonClicked == true)
+            {
+                isUserEditing(false);
             }    
             
-            for(int i = 0; i < tabelaConsulta.getRowCount(); i++)//Converte tabela em objetos
+            for(int i = 0; i < tabelaConsulta.getRowCount(); i++)
             {
                 Task task = new Task();
+                
                 task.setTitle((String) tabelaConsulta.getValueAt(i, 1));
                 task.setPlate(PlacaConsulta.getText());
-                taskController.deleteTask(task); //Salva as tarefas no banco de dados
+                
+                taskController.deleteTask(task); 
             }
-            clearConsulta();
+            clearQuery();
         } 
     }
     
-    public void PopularTarefas(String plate)
-    {
-        modelQuery.setRowCount(0);
-        taskList = taskController.getTasksByPlate(plate);
-        Task task;
-        for(int i = 0; i < taskList.size(); i++)
-        {
-            task = taskList.get(i);
-            Date data = task.getTaskDate();
-            String titulo = task.getTitle();
-            String texto = task.getText();
-            Object[] row = { data, titulo, texto};
-            modelQuery.addRow(row);
-        }
-    }
-    
-    private void mostrarDialogo(String titulo,String texto)
-    {
-        TelaDialogo dialogo = new TelaDialogo(this.jFrame1,true);
-        dialogo.SetMessage(titulo, texto);
-        dialogo.setVisible(true);
-    }
-    
-    private void checkResult(List<Car> lista)
-    {
-        if(lista.isEmpty())
-        {
-            mostrarDialogo("ERRO", "A pesquisa não teve resultados!");
-        }
-        else
-        {
-            MostrarTelaDeSelecao(lista);
-        }
-    }
-    
-    private void changeEditar(Boolean bool)
-    {
-        /*
-        Deshabilita os campos e o botão salvar
-        Caso busque novo carro sem sair do modo edição ou
-        Delete um carro sem sair do modo edição
-        
-        Habilita quando clicar no botão editar
-        
-        */
-        SalvarConsulta.setEnabled(bool);
-        PlacaConsulta.setEnabled(bool);
-        DonoConsulta.setEnabled(bool);
-        MarcaConsulta.setEnabled(bool);
-        ModeloConsulta.setEnabled(bool);
-        DataEntradaConsulta.setEnabled(bool);
-        DataSaidaConsulta.setEnabled(bool);
-        ComentariosConsulta.setEnabled(bool);
-        local1Consulta.setEnabled(bool);
-        local2Consulta.setEnabled(bool);
-        local3Consulta.setEnabled(bool);
-        local4Consulta.setEnabled(bool);
-        AdicionarTarefaConsulta.setEnabled(bool);
-        RemoverTarefaConsulta.setEnabled(bool);
-        clicked = bool;
-    }
-    
-    private void clearCadastro()
-    {
-        PlacaCadastro.setText("");
-        DonoCadastro.setText("");
-        MarcaCadastro.setText("");
-        ModeloCadastro.setText("");
-        DataEntradaCadastro.setText("");
-        DataSaidaCadastro.setText("");
-        ComentariosCadastro.setText("");
-        local1Cadastro.setSelected(false);
-        local2Cadastro.setSelected(false);
-        local3Cadastro.setSelected(false);
-        local4Cadastro.setSelected(false);
-        modelRegister.setRowCount(0);
-    }
-    
-    private void clearConsulta()
+    private void clearQuery()
     {
         IDConsulta.setText("");
         PlacaConsulta.setText("");
@@ -1986,45 +1693,253 @@ public class TelaPrincipal extends javax.swing.JFrame
         local4Consulta.setSelected(false);
         modelQuery.setRowCount(0);
     }
-
-    private void fetchCarByID() 
+ 
+    private void checkResult(List<Car> lista)
     {
-        try 
+        if(lista.isEmpty())
         {
-            car = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
-
-            if (car.getPlate() == null) 
+            showDialog("ERRO", "A pesquisa não teve resultados!");
+        }
+        else
+        {
+            ShowSelectionScreen(lista);
+        }
+    }
+    
+    public void ShowSelectionScreen(List<Car> carList)
+    {
+        TelaSelecao selectionScreen = new TelaSelecao(this,true);
+        selectionScreen.PopulateTable(carList);
+        selectionScreen.setVisible(true);
+        
+        if(selectionScreen.ReturnSelectedCar() != -1)
+        {
+            globalCar = (carList.get(selectionScreen.ReturnSelectedCar()));
+            
+            setGlobalCarQueryData();
+            PopulateOrRefreshTasks(globalCar.getPlate());
+            
+            if(isEditButtonClicked == true)
             {
-                mostrarDialogo("ERRO", "A pesquisa não teve resultados!");
-                return;
+                isUserEditing(false);
+            }
+        }
+    }
+    
+    public void PopulateOrRefreshTasks(String plate)
+    {
+        modelQuery.setRowCount(0);
+        taskList = taskController.getTasksByPlate(plate);
+        Task task;
+        
+        for(int i = 0; i < taskList.size(); i++)
+        {
+            task = taskList.get(i);
+            Date data = task.getTaskDate();
+            String titulo = task.getTitle();
+            String texto = task.getText();
+            Object[] row = { data, titulo, texto};
+            modelQuery.addRow(row);
+        }
+        
+    }
+    
+    private void isUserEditing(Boolean bool)
+    {
+        /*
+        Deshabilita os campos e o botão salvar
+        Caso busque novo carro sem sair do modo edição ou
+        Delete um carro sem sair do modo edição
+        
+        Habilita quando clicar no botão editar
+        
+        */
+        botaoSalvarConsulta.setEnabled(bool);
+        PlacaConsulta.setEnabled(bool);
+        DonoConsulta.setEnabled(bool);
+        MarcaConsulta.setEnabled(bool);
+        ModeloConsulta.setEnabled(bool);
+        DataEntradaConsulta.setEnabled(bool);
+        DataSaidaConsulta.setEnabled(bool);
+        ComentariosConsulta.setEnabled(bool);
+        local1Consulta.setEnabled(bool);
+        local2Consulta.setEnabled(bool);
+        local3Consulta.setEnabled(bool);
+        local4Consulta.setEnabled(bool);
+        botaoAdicionarTarefaConsulta.setEnabled(bool);
+        botaoRemoverTarefaConsulta.setEnabled(bool);
+        isEditButtonClicked = bool;
+    }
+    
+    private void updateCar()       
+    {
+        try
+        {
+            setGlobalCarRegisterData();
+
+            carController.update(globalCar);
+            showDialog("CONFIRMAÇÃO", "As informações foram salvas");
+
+            isUserEditing(false);
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void createCar()
+    {
+        try
+        {
+            setGlobalCarRegisterData();
+            
+            for(int i = 0; i < tabelaCadastro.getRowCount(); i++)//Converte tabela em objetos
+            {
+                Task task = new Task();
+                Date dataTabela = format.parse((String) tabelaCadastro.getValueAt(i, 0));
+                
+                task.setTaskDate(dataTabela);
+                task.setTitle((String) tabelaCadastro.getValueAt(i, 1));
+                task.setText((String) tabelaCadastro.getValueAt(i, 2));
+                task.setPlate(PlacaCadastro.getText());
+                
+                taskController.saveTask(task); //Salva as tarefas no banco de dados
             }
 
-            PlacaConsulta.setText(car.getPlate());
-            IDConsulta.setText(Integer.toString(car.getId()));
-            DonoConsulta.setText(car.getOwner());
-            MarcaConsulta.setText(car.getBrand());
-            ModeloConsulta.setText(car.getModel());
-            DataEntradaConsulta.setText(format.format(car.getEntrance()));
+            carController.create(globalCar);
 
-            if (!"31/12/1969".equals(format.format(car.getExit()))) 
+            showDialog("SUCESSO", "O carro foi cadastrado com sucesso!");
+
+            clearRegister();
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void clearRegister()
+    {
+        PlacaCadastro.setText("");
+        DonoCadastro.setText("");
+        MarcaCadastro.setText("");
+        ModeloCadastro.setText("");
+        DataEntradaCadastro.setText("");
+        DataSaidaCadastro.setText("");
+        ComentariosCadastro.setText("");
+        local1Cadastro.setSelected(false);
+        local2Cadastro.setSelected(false);
+        local3Cadastro.setSelected(false);
+        local4Cadastro.setSelected(false);
+        modelRegister.setRowCount(0);
+    }
+    
+    private void setGlobalCarRegisterData()
+    {
+        try
+        {
+            globalCar.setPlate(PlacaCadastro.getText());
+            globalCar.setOwner(DonoCadastro.getText());
+            globalCar.setBrand(MarcaCadastro.getText());
+            globalCar.setModel(ModeloCadastro.getText());
+            globalCar.setEntrance(format.parse(DataEntradaCadastro.getText()));
+
+            if (DataSaidaCadastro.getDocument().getLength() != 0) 
             {
-                DataSaidaConsulta.setText(format.format(car.getExit()));
+                globalCar.setExit(format.parse(DataSaidaCadastro.getText()));
+            }
+
+            globalCar.setComments(ComentariosCadastro.getText());
+            globalCar.setInFirstLocal(local1Cadastro.isSelected());
+            globalCar.setInSecondLocal(local2Cadastro.isSelected());
+            globalCar.setInThirdLocal(local3Cadastro.isSelected());
+            globalCar.setInFourthLocal(local4Cadastro.isSelected());   
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void setGlobalCarQueryData()
+    {
+        try
+        {
+            PlacaConsulta.setText(globalCar.getPlate());
+            IDConsulta.setText(Integer.toString(globalCar.getId()));
+            DonoConsulta.setText(globalCar.getOwner());
+            MarcaConsulta.setText(globalCar.getBrand());
+            ModeloConsulta.setText(globalCar.getModel());
+            DataEntradaConsulta.setText(format.format(globalCar.getEntrance()));
+
+            if (!"31/12/1969".equals(format.format(globalCar.getExit()))) 
+            {
+                DataSaidaConsulta.setText(format.format(globalCar.getExit()));
             } 
             else 
             {
                 DataSaidaConsulta.setText("");
             }
 
-            ComentariosConsulta.setText(car.getComments());
-            local1Consulta.setSelected(car.isInFirstLocal());
-            local2Consulta.setSelected(car.isInSecondLocal());
-            local3Consulta.setSelected(car.isInThirdLocal());
-            local4Consulta.setSelected(car.isInFourthLocal());
-            PopularTarefas(car.getPlate());
-            
-            if (clicked == true) 
+            ComentariosConsulta.setText(globalCar.getComments());
+            local1Consulta.setSelected(globalCar.isInFirstLocal());
+            local2Consulta.setSelected(globalCar.isInSecondLocal());
+            local3Consulta.setSelected(globalCar.isInThirdLocal());
+            local4Consulta.setSelected(globalCar.isInFourthLocal());
+        }
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void refreshGlobalCarData() 
+    {
+        if (!"".equals(IDConsulta.getText())) 
+        {
+            PlacaConsulta.setText(globalCar.getPlate());
+            IDConsulta.setText(Integer.toString(globalCar.getId()));
+            DonoConsulta.setText(globalCar.getOwner());
+            MarcaConsulta.setText(globalCar.getBrand());
+            ModeloConsulta.setText(globalCar.getModel());
+            DataEntradaConsulta.setText(format.format(globalCar.getEntrance()));
+            if(!"31/12/1969".equals(format.format(globalCar.getExit())))
             {
-                changeEditar(false);
+                DataSaidaConsulta.setText(format.format(globalCar.getExit()));
+            }
+            else
+            {
+                DataSaidaConsulta.setText("");
+            }
+            ComentariosConsulta.setText(globalCar.getComments());
+            local1Consulta.setSelected(globalCar.isInFirstLocal());
+            local2Consulta.setSelected(globalCar.isInSecondLocal());
+            local3Consulta.setSelected(globalCar.isInThirdLocal());
+            local4Consulta.setSelected(globalCar.isInFourthLocal());
+            PopulateOrRefreshTasks(globalCar.getPlate());
+        }
+    }
+    
+    private void fetchCarByID() 
+    {
+        try 
+        {
+            globalCar = carController.getById(Integer.parseInt(BarraDePesquisa.getText()));
+
+            if (globalCar.getPlate() == null) 
+            {
+                showDialog("ERRO", "A pesquisa não teve resultados!");
+                return;
+            }
+
+            setGlobalCarQueryData();
+            
+            PopulateOrRefreshTasks(globalCar.getPlate());
+            
+            if (isEditButtonClicked == true) 
+            {
+                isUserEditing(false);
             }
             
         } 
@@ -2040,9 +1955,155 @@ public class TelaPrincipal extends javax.swing.JFrame
         {
             carList = carController.getByPlate(BarraDePesquisa.getText());
             checkResult(carList);
-        } catch (Exception ex) {
+        } 
+        catch (Exception ex) 
+        {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
         }
     }
 
+    private void fetchCarByOwner()
+    {
+        try 
+        {
+            carList = carController.getByOwner(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByBrand()
+    {
+        try 
+        {
+            carList = carController.getByBrand(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByModel()
+    {
+        try 
+        {
+            carList = carController.getByModel(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByEntrance()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = carController.getByEntrance(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByExit()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = carController.getByExit(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByTaskDay()
+    {
+        try 
+        {
+            if (isValidDate(BarraDePesquisa.getText()) == false) 
+            {
+                return;
+            }
+
+            carList = taskController.getCarByTask(BarraDePesquisa.getText());
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByFirstLocal()
+    {
+        try
+        {
+            carList = carController.getByFirstLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarBySecondLocal()
+    {
+        try
+        {
+            carList = carController.getBySecondLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+        
+    private void fetchCarByThirdLocal()
+    {
+        try
+        {
+            carList = carController.getByThirdLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
+    
+    private void fetchCarByFourthLocal()
+    {
+        try
+        {
+            carList = carController.getByFourthLocal();
+            checkResult(carList);
+        } 
+        catch (Exception ex) 
+        {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        }
+    }
 }

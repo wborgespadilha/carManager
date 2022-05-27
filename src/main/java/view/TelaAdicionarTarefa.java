@@ -7,7 +7,7 @@ import model.Task;
 
 public class TelaAdicionarTarefa extends javax.swing.JDialog 
 {
-    int state = -1;
+    boolean taskSaved = false;
     TaskController controller;
     SimpleDateFormat format;
     Task task;
@@ -174,19 +174,20 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
 
     private void adicionarTarefaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_adicionarTarefaMouseClicked
     {//GEN-HEADEREND:event_adicionarTarefaMouseClicked
-        if(dataTarefa.getDocument().getLength() == 0)
+        if(isTextFieldEmpty(dataTarefa))
         {
-            TelaDialogo dialogo = new TelaDialogo(null,true);
-            dialogo.SetMessage("ERRO", "Você deve informar a data!");
-            dialogo.setVisible(true);
+            showDialog("ERRO", "Você deve informar a data!");
             return;
         }
-        if(ValidarData(dataTarefa.getText()) == 1){return;}
-        if(nomeTarefa.getDocument().getLength() == 0)
+        
+        if(isValidDate(dataTarefa.getText()) == false)
         {
-            TelaDialogo dialogo = new TelaDialogo(null,true);
-            dialogo.SetMessage("ERRO", "Você deve informar o título!");
-            dialogo.setVisible(true);
+            return;
+        }
+        
+        if(isTextFieldEmpty(nomeTarefa))
+        {
+            showDialog("ERRO", "Você deve informar o título!");
             return;
         }
 
@@ -195,9 +196,11 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
             task.setTaskDate(format.parse(dataTarefa.getText()));
             task.setTitle(nomeTarefa.getText());
             task.setText(comentariosTarefa.getText());
+            
             controller.saveTask(task);
-            state = 1;
-            dispose();//Apenas fecha a tela
+            taskSaved = true;
+            
+            dispose();
         }
         catch(Exception ex)
         {
@@ -261,61 +264,61 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
     private javax.swing.JTextField placaText;
     // End of variables declaration//GEN-END:variables
 
-    public int State()
+    public boolean taskSaved()
     {
-        return state;
+        return taskSaved;
     }
 
-    public void passarPlaca(String placa)
+    public void setPlate(String placa)
     {
         task.setPlate(placa);
         placaText.setText(placa);
     }
     
-    private int ValidarData(String data)
+    private boolean isValidDate(String data)
     {
         if(!(data.length() == 10))
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
 
         if (!(Character.isDigit(data.charAt(0)) && Character.isDigit(data.charAt(1)))) 
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
 
         if (data.charAt(2) != '/')
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
 
         if (!(Character.isDigit(data.charAt(3)) && Character.isDigit(data.charAt(4))))
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
         if (data.charAt(5) != '/')
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
 
         if (! (Character.isDigit(data.charAt(6)) && Character.isDigit(data.charAt(7))
          && Character.isDigit(data.charAt(8)) && Character.isDigit(data.charAt(9))) )
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
         
         int i = Integer.parseInt(data.substring(3, 5));//mês
         
         if (i < 0 || i > 12)
         {
-            RetornarErroData();
-            return 1;
+            showDialog("ERRO", "A data informada é inválida!");
+            return false;
         }
         
         int j = Integer.parseInt(data.substring(0, 2));//dia
@@ -326,8 +329,8 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 2 ->
@@ -337,16 +340,16 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
                 {
                     if (j < 0 || j > 29)
                     {
-                        RetornarErroData();
-                        return 1;
+                        showDialog("ERRO", "A data informada é inválida!");
+                        return false;
                     }
                 }
                 else
                 {
                     if (j < 0 || j > 28)
                     {
-                        RetornarErroData();
-                        return 1;
+                        showDialog("ERRO", "A data informada é inválida!");
+                        return false;
                     }
                 }
             }
@@ -354,91 +357,97 @@ public class TelaAdicionarTarefa extends javax.swing.JDialog
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 4 ->
             {
                 if (j < 0 || j > 30)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 5 ->
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 6 ->
             {
                 if (j < 0 || j > 30)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 7 ->
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 8 ->
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 9 ->
             {
                 if (j < 0 || j > 30)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 10 ->
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 11 ->
             {
                 if (j < 0 || j > 30)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
             case 12 ->
             {
                 if (j < 0 || j > 31)
                 {
-                    RetornarErroData();
-                    return 1;
+                    showDialog("ERRO", "A data informada é inválida!");
+                    return false;
                 }
             }
         }
-        return 0;
+        return true;
     }
 
-    private void RetornarErroData ()
+    private void showDialog(String titulo,String texto)
     {
         TelaDialogo dialogo = new TelaDialogo(null,true);
-        dialogo.SetMessage("ERRO", "A data informada é inválida!");
+        dialogo.SetMessage(titulo, texto);
         dialogo.setVisible(true);
     }
+    
+    private boolean isTextFieldEmpty(javax.swing.JTextField textField)
+    {
+        return textField.getDocument().getLength() == 0;
+    }
+    
 }
 

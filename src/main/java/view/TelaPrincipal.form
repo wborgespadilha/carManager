@@ -306,8 +306,8 @@
                               <Component id="BotaoCadastrar" min="-2" pref="159" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="AdicionarTarefaCadastro" min="-2" pref="152" max="-2" attributes="0"/>
-                                  <Component id="RemoverTarefaCadastro" min="-2" pref="149" max="-2" attributes="0"/>
+                                  <Component id="botaoAdicionarTarefaCadastro" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="botaoRemoverTarefaCadastro" min="-2" pref="149" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
@@ -409,9 +409,9 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="AdicionarTarefaCadastro" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="botaoAdicionarTarefaCadastro" min="-2" pref="36" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Component id="RemoverTarefaCadastro" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="botaoRemoverTarefaCadastro" min="-2" pref="34" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -628,20 +628,20 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="AdicionarTarefaCadastro">
+            <Component class="javax.swing.JButton" name="botaoAdicionarTarefaCadastro">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Tarefa"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionarTarefaCadastroMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoAdicionarTarefaCadastroMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="RemoverTarefaCadastro">
+            <Component class="javax.swing.JButton" name="botaoRemoverTarefaCadastro">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover Tarefa"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RemoverTarefaCadastroMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoRemoverTarefaCadastroMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="DataEntradaCadastro">
@@ -783,13 +783,13 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
-                              <Component id="EditarConsulta" min="-2" pref="121" max="-2" attributes="0"/>
+                              <Component id="botaoEditarConsulta" min="-2" pref="121" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="SalvarConsulta" min="-2" pref="111" max="-2" attributes="0"/>
+                                      <Component id="botaoSalvarConsulta" min="-2" pref="111" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Component id="ExcluirConsulta" min="-2" max="-2" attributes="0"/>
+                                      <Component id="botaoExcluirConsulta" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
@@ -804,9 +804,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
-                              <Component id="AdicionarTarefaConsulta" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoAdicionarTarefaConsulta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="RemoverTarefaConsulta" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoRemoverTarefaConsulta" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
@@ -895,9 +895,9 @@
                       </Group>
                       <EmptySpace pref="44" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="EditarConsulta" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
-                          <Component id="SalvarConsulta" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
-                          <Component id="ExcluirConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoEditarConsulta" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="botaoSalvarConsulta" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
+                          <Component id="botaoExcluirConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="45" max="32767" attributes="0"/>
                   </Group>
@@ -912,8 +912,8 @@
                       <Component id="jScrollPane6" pref="0" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="AdicionarTarefaConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="RemoverTarefaConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoAdicionarTarefaConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoRemoverTarefaConsulta" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
@@ -1078,29 +1078,29 @@
                 <Property name="text" type="java.lang.String" value="Data Entrada:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="EditarConsulta">
+            <Component class="javax.swing.JButton" name="botaoEditarConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EditarConsultaMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoEditarConsultaMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="SalvarConsulta">
+            <Component class="javax.swing.JButton" name="botaoSalvarConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SalvarConsultaMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoSalvarConsultaMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="ExcluirConsulta">
+            <Component class="javax.swing.JButton" name="botaoExcluirConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Excluir"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ExcluirConsultaMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoExcluirConsultaMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
@@ -1217,22 +1217,22 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="AdicionarTarefaConsulta">
+            <Component class="javax.swing.JButton" name="botaoAdicionarTarefaConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Tarefa"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="AdicionarTarefaConsultaMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoAdicionarTarefaConsultaMouseClicked"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="RemoverTarefaConsulta">
+            <Component class="javax.swing.JButton" name="botaoRemoverTarefaConsulta">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Remover Tarefa"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RemoverTarefaConsultaMouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="botaoRemoverTarefaConsultaMouseClicked"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="DataEntradaConsulta">
